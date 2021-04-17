@@ -6,7 +6,7 @@ module.exports = {
     usage: "[video link]",
     execute(message, args) {
 
-        const videoLink = args[0].toString();
+        const videoLink = args[0];
 
         w2gRoom(message, videoLink);
     },
