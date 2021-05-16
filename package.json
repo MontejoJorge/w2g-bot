@@ -13,6 +13,7 @@
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
+    "topgg-autoposter": "^1.1.10",
     "youtube-search": "^1.1.6"
   }
 }
