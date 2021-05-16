@@ -1,11 +1,12 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const AutoPoster = require('topgg-autoposter');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 
-const { prefix, DISCORD_TOKEN } = require('./config.json');
+const { prefix, DISCORD_TOKEN, TOP_GG_TOKEN } = require('./config.json');
 
 //Cada archivo .js en la carpeta ./commands pasara a ser un comando
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -22,9 +23,9 @@ client.once('ready', () => {
     //     console.log(guild.name);
     // });
 
-	client.user.setActivity("!w2g || !help", {
-		type: "PLAYING"
-	});
+    client.user.setActivity("!w2g || !help", {
+        type: "PLAYING"
+    });
 });
 
 client.on('message', message => {
@@ -73,6 +74,13 @@ client.on('message', message => {
         message.reply('there was an error trying to execute that command!');
     }
 
+});
+
+//TOP.GG autoposter
+const ap = AutoPoster(TOP_GG_TOKEN, client);
+
+ap.on('posted', () => { // ran when succesfully posted
+    console.log('Posted stats to top.gg')
 });
 
 client.login(DISCORD_TOKEN);
