@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const fs = require('fs');
 const Discord = require('discord.js');
 
@@ -7,9 +5,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 
-const dcToken = process.env.DISCORD_TOKEN;
-
-const { prefix } = require('./config.json');
+const { prefix, DISCORD_TOKEN } = require('./config.json');
 
 //Cada archivo .js en la carpeta ./commands pasara a ser un comando
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -20,7 +16,12 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-    console.log('Ready!');
+    console.log(`Ready on: ${client.guilds.cache.size} servers!`);
+
+    // client.guilds.cache.forEach(guild => {
+    //     console.log(guild.name);
+    // });
+
 	client.user.setActivity("!w2g || !help", {
 		type: "PLAYING"
 	});
@@ -74,4 +75,4 @@ client.on('message', message => {
 
 });
 
-client.login(dcToken);
+client.login(DISCORD_TOKEN);
