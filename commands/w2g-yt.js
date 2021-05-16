@@ -1,7 +1,8 @@
 var search = require('youtube-search');
 const { w2gRoom } = require('../helpers/w2gRoom');
 
-const youtubeAPI = process.env.YOUTUBE_API_KEY;
+const { YOUTUBE_API_KEY } = require('../config.json');
+
 
 module.exports = {
     name: 'w2g-yt',
@@ -12,7 +13,7 @@ module.exports = {
         var opts = {
             maxResults: 1,
             type: "video",
-            key: youtubeAPI
+            key: YOUTUBE_API_KEY
         };
 
         const searchTerm = args.join(" ");
