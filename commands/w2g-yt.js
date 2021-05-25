@@ -1,7 +1,7 @@
 var search = require('youtube-search');
 const { w2gRoom } = require('../helpers/w2gRoom');
 
-const { YOUTUBE_API_KEY } = require('../config.json');
+const { YOUTUBE_API_KEY } = process.env;
 
 
 module.exports = {

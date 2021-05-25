@@ -1,3 +1,4 @@
+require('dotenv').config()
 const fs = require('fs');
 const Discord = require('discord.js');
 const AutoPoster = require('topgg-autoposter');
@@ -6,7 +7,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 
-const { prefix, DISCORD_TOKEN, TOP_GG_TOKEN } = require('./config.json');
+const { prefix, DISCORD_TOKEN, TOP_GG_TOKEN } = process.env;
 
 //Cada archivo .js en la carpeta ./commands pasara a ser un comando
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));

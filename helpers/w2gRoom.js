@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const { W2G_API_KEY } = require('../config.json');
+const { W2G_API_KEY } = process.env;
 
 function w2gRoom(message, videoLink) {
     fetch("https://w2g.tv/rooms/create.json", {
