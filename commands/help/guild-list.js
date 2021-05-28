@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'guild-list',
-    description: 'List the guilds names, only for admins',
-    
+    description: 'List the guilds names, only for admins.',
+    hide: true,    
     execute(message, args) {
 
         //Solo Keppler puede ejecutar el comando

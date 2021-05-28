@@ -13,8 +13,13 @@ module.exports = {
 
         if (!args.length) {
             data.push('Here\'s a list of all my commands:\n');
-            data.push(commands.map(command => `\`${prefix + command.name}\` : ${command.description}`).join('\n'));
-            data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+            data.push(commands.map( function(command) {
+                if (!command.hide){
+                    return `\`${prefix + command.name}\` : ${command.description}\n`
+                }
+            }
+            ).join(''));
+            data.push(`You can send \`${prefix}help [command name]\` to get info on a specific command!`);
 
             return message.channel.send(data, { split: true });
         }
