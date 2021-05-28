@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'w2g-link',
+    name: 'link',
     description: 'Share the bot invitation link.',
 
     execute(message, args) {

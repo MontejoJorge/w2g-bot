@@ -1,4 +1,4 @@
-const { w2gRoom } = require("../helpers/w2gRoom");
+const { w2gRoom } = require("../../helpers/w2gRoom");
 
 module.exports = {
     name: 'w2g',
