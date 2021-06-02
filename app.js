@@ -2,13 +2,14 @@ require('dotenv').config()
 const fs = require('fs');
 const Discord = require('discord.js');
 const AutoPoster = require('topgg-autoposter');
-var mysql = require('mysql');
+
+const Server = require("./webserver/models/server");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 
-const { prefix, DISCORD_TOKEN, TOP_GG_TOKEN, DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
+const { prefix, DISCORD_TOKEN, TOP_GG_TOKEN } = process.env;
 
 //Buscamos los comandos en las subcarpetas de ./comands
 const commandFolders = fs.readdirSync('./commands');
@@ -85,22 +86,10 @@ client.on('message', message => {
 
 client.login(DISCORD_TOKEN);
 
+//Web Server
+const server = new Server();
 
-var connection = mysql.createConnection({
-    host: DB_HOST,
-    user: DB_USERNAME,
-    password: DB_PASSWORD,
-    database: DB_DATABASE
-});
-
-connection.connect(function (err) {
-    if (err) {
-        console.error('Error connecting to the database: ' + err.stack);
-        return;
-    }
-
-    console.log('Conected to the database');
-});
+server.listen();
 
 module.exports = {
     client
