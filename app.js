@@ -78,18 +78,18 @@ client.on('message', message => {
 });
 
 //TOP.GG autoposter
-// const ap = AutoPoster(TOP_GG_TOKEN, client);
+const ap = AutoPoster(TOP_GG_TOKEN, client);
 
-// ap.on('posted', () => { // ran when succesfully posted
-//     console.log('Posted stats to top.gg')
-// });
+ap.on('posted', () => { // ran when succesfully posted
+    console.log('Posted stats to top.gg')
+});
 
 client.login(DISCORD_TOKEN);
 
 //Web Server
-const server = new Server();
+// const server = new Server();
 
-server.listen();
+// server.listen();
 
 module.exports = {
     client
