@@ -21,7 +21,7 @@ module.exports = {
                 return message.channel.send(guildNamesEmbed);
             });
         } else {
-            message.reply(`Please, join to voice channel`)
+            message.reply(`Please, join a voice channel`)
         };
 
     },
