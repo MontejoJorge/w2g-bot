@@ -3,7 +3,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const AutoPoster = require('topgg-autoposter');
 
-const Server = require("./webserver/models/server");
+//const Server = require("./webserver/models/server");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
