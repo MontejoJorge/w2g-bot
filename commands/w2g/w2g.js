@@ -8,8 +8,6 @@ module.exports = {
 
         const videoLink = args[0];
 
-        //TODO si no es un link alertar al usuario
-
         w2gRoom(message,videoLink);
     },
 };

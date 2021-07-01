@@ -8,7 +8,7 @@ client.discordTogether = new DiscordTogether(client);
 module.exports = {
     name: 'yt',
     cooldown: 5,
-    description: 'Create an invitation link to use youtube on the voice channel.',
+    description: 'Starts a youtube together session.',
     execute(message, args) {
 
         if(message.member.voice.channel) {
@@ -21,7 +21,7 @@ module.exports = {
                 return message.channel.send(guildNamesEmbed);
             });
         } else {
-            message.reply(`Please, join a voice channel`)
+            message.reply(`Please, join a voice channel.`)
         };
 
     },
