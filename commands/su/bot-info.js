@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'guild-list',
+    name: 'bot-info',
     description: 'List the guilds names, only for admins.',
-    hide: true,    
+    hide: true,
     execute(message, args) {
 
         //Solo Keppler puede ejecutar el comando
@@ -11,21 +11,16 @@ module.exports = {
 
         const { client } = require("../../app");
 
-        var guildNames = '';
-        client.guilds.cache.forEach(guild => {
-            guildNames += guild.name + '\n';
-        });
-
         const guildNamesEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
-            .setTitle('Guild list')
-            .setDescription(guildNames)
             .setThumbnail(client.user.displayAvatarURL())
             .addFields(
                 { name: 'Total guilds', value: client.guilds.cache.size },
+                { name: 'Total users', value: client.users.cache.filter(u => !u.bot).size },
             )
             .setTimestamp();
 
         message.channel.send(guildNamesEmbed);
+
     },
 };
