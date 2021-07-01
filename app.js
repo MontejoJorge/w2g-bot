@@ -2,6 +2,7 @@ require('dotenv').config()
 const fs = require('fs');
 const Discord = require('discord.js');
 const AutoPoster = require('topgg-autoposter');
+const botActivity = require('./helpers/botActivity');
 
 //const Server = require("./webserver/models/server");
 
@@ -27,9 +28,7 @@ for (const folder of commandFolders) {
 client.once('ready', () => {
     console.log(`Ready on: ${client.guilds.cache.size} servers!`);
 
-    client.user.setActivity("!w2g || !help", {
-        type: "PLAYING"
-    });
+    botActivity(client);
 });
 
 client.on('message', message => {
@@ -80,16 +79,9 @@ client.on('message', message => {
 //TOP.GG autoposter
 const ap = AutoPoster(TOP_GG_TOKEN, client);
 
-ap.on('posted', () => { // ran when succesfully posted
-    console.log('Posted stats to top.gg')
-});
+ap.on('posted', () => { console.log('Posted stats to top.gg') });
 
 client.login(DISCORD_TOKEN);
-
-//Web Server
-// const server = new Server();
-
-// server.listen();
 
 module.exports = {
     client
