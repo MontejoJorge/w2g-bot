@@ -1,12 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 const { dbConnection } = require('../../database/config');
+const path = require('path');
+var hbs = require('hbs');
+
+hbs.registerPartials('./webserver/views/templates', function (err) {});
+
+const routes = {
+    home: "/",
+    login: "/login",
+}
 
 class Server {
 
     constructor() {
         this.app = express();
         this.port = process.env.PORT || 3000;
+
+        this.app.set('views', path.join("./webserver/views"));
+        this.app.set('view engine', 'hbs');
 
         //Conectar base de datos
         this.conectarDB();
@@ -30,13 +42,23 @@ class Server {
         //Lectura y parse del body
         this.app.use(express.json());
 
-        //Directorio publico
-        this.app.use(express.static("./webserver/public"));
-
     }
 
     routes() {
-        
+
+        this.app.get(routes.home, function (req, res) {
+
+            const urls = routes;
+
+            res.render("index", {
+                urls
+            });
+        });
+
+        this.app.get(routes.login, function (req, res) {
+            res.send('Login');
+        });
+
     }
 
     listen() {
