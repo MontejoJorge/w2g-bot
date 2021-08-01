@@ -1,14 +1,20 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 const { dbConnection } = require('../../database/config');
 const path = require('path');
-var hbs = require('hbs');
+const hbs = require('hbs');
+const passport = require('../helpers/passport');
 
-hbs.registerPartials('./webserver/views/templates', function (err) {});
+
+hbs.registerPartials('./webserver/views/templates', function (err) { });
+
 
 const routes = {
     home: "/",
     login: "/login",
+    logout: "/logout",
+    dashboard: "/dashboard"
 }
 
 class Server {
@@ -20,8 +26,18 @@ class Server {
         this.app.set('views', path.join("./webserver/views"));
         this.app.set('view engine', 'hbs');
 
+        this.app.use(session({
+            secret: process.env.SECRET_KEY,
+            name: 'sessionId',
+            resave: false,
+            saveUninitialized: false
+        }));
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
+
+
         //Conectar base de datos
-        this.conectarDB();
+        this.connectDB();
 
         //Middlewares
         this.middlewares();
@@ -30,7 +46,7 @@ class Server {
         this.routes();
     }
 
-    async conectarDB() {
+    async connectDB() {
         await dbConnection();
     }
 
@@ -51,13 +67,30 @@ class Server {
             const urls = routes;
 
             res.render("index", {
-                urls
+                urls,
+                loged: req.isAuthenticated()
             });
         });
 
-        this.app.get(routes.login, function (req, res) {
-            res.send('Login');
+        this.app.get(routes.login, passport.authenticate('discord'), function (req, res) { });
+
+        this.app.get('/callback',
+            passport.authenticate('discord', { failureRedirect: '/' }), function (req, res) { res.redirect(routes.dashboard) }
+        );
+
+        this.app.get(routes.logout, function (req, res) {
+            req.logout();
+            res.redirect(routes.home);
         });
+
+        this.app.get(routes.dashboard, checkAuth, function (req, res) {
+            res.json(req.user);
+        });
+        
+        function checkAuth(req, res, next) {
+            if (req.isAuthenticated()) return next();
+            res.redirect(routes.login);
+        }
 
     }
 

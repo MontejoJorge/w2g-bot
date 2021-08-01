@@ -10,7 +10,10 @@
 <body>
 
     <h1>Welcome to BetterBot</h1>
-
+    {{ loged }}
+    {{#if loged}}
+        <a href="{{ urls.logout }}">logout</a>
+    {{/if}}
 
 </body>
 </html>
