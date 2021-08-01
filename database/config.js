@@ -1,26 +1,26 @@
-var mysql = require('mysql');
+const mongoose = require('mongoose');
 
-const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
+const dbConnection = async() => {
 
+    try {
 
-const dbConnection = mysql.createConnection({
-    host: DB_HOST,
-    user: DB_USERNAME,
-    password: DB_PASSWORD,
-    database: DB_DATABASE
-});
+        await mongoose.connect(process.env.MONGODB_CNN, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: false
+        });
 
-
-
-dbConnection.connect(function (err) {
-    if (err) {
-        console.error('Error connecting to the database: ' + err.stack);
-        return;
+        console.log("Database ready!");
+        
+    } catch (error) {
+        console.log(error);
+        throw new Error("Error al connectar con la base de datos")
     }
 
-    console.log('Conected to the database');
-});
+
+}
 
 module.exports = {
-    dbConnection
+    dbConnection,
 }
