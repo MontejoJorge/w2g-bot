@@ -5,6 +5,8 @@ const { dbConnection } = require('../../../database/config');
 const path = require('path');
 const hbs = require('hbs');
 const passport = require('../helpers/passport');
+const history = require('connect-history-api-fallback');
+
 
 
 hbs.registerPartials('./webserver/views/templates', function (err) { });
@@ -22,10 +24,14 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT || 3000;
-
+        
+        this.discordAuthPath = "/api/auth/discord";
+        this.dashboardPath = "/api/dashboard";
+        
+        
         this.app.set('views', path.join("./webserver/views"));
         this.app.set('view engine', 'hbs');
-
+        
         this.app.use(session({
             secret: process.env.SECRET_KEY,
             name: 'sessionId',
@@ -35,17 +41,17 @@ class Server {
         this.app.use(passport.initialize());
         this.app.use(passport.session());
 
+        //rutas
+        this.routes();
+        this.app.use(history());
+        
         this.app.use(express.static(path.join(__dirname, '../../frontend/public')));
-
-
+        
         //Conectar base de datos
         this.connectDB();
 
         //Middlewares
         this.middlewares();
-
-        //Rutas
-        this.routes();
     }
 
     async connectDB() {
@@ -64,35 +70,14 @@ class Server {
 
     routes() {
 
-        this.app.get(routes.home, function (req, res) {
+        this.app.use(this.discordAuthPath, require("../routes/auth"));
 
-            const urls = routes;
+        this.app.use(this.dashboardPath, require("../routes/dashboard"));
 
-            res.render("index", {
-                urls,
-                loged: req.isAuthenticated()
-            });
-        });
-
-        this.app.get(routes.login, passport.authenticate('discord'), function (req, res) { });
-
-        this.app.get('/callback',
-            passport.authenticate('discord', { failureRedirect: '/' }), function (req, res) { res.redirect(routes.dashboard) }
-        );
-
-        this.app.get(routes.logout, function (req, res) {
-            req.logout();
-            res.redirect(routes.home);
-        });
-
-        this.app.get(routes.dashboard, checkAuth, function (req, res) {
-            res.json(req.user);
-        });
-        
-        function checkAuth(req, res, next) {
-            if (req.isAuthenticated()) return next();
-            res.redirect(routes.login);
-        }
+        // this.app.get(routes.logout, function (req, res) {
+        //     req.logout();
+        //     res.redirect(routes.home);
+        // });
 
     }
 

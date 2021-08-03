@@ -14,7 +14,7 @@ var prompt = 'consent';
 passport.use(new Strategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/callback',
+    callbackURL: 'http://localhost:3000/api/auth/discord/callback',
     scope: scopes,
     prompt: prompt
 }, function(accessToken, refreshToken, profile, done) {
