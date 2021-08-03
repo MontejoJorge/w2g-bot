@@ -13,7 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
     "discord-together": "^1.1.14",
     "discord.js": "^12.5.3",
@@ -29,6 +31,7 @@
     "passport-discord": "^0.1.4",
     "path": "^0.12.7",
     "topgg-autoposter": "^1.1.10",
+    "vue-router": "^3.5.2",
     "webpack": "^5.48.0",
     "youtube-search": "^1.1.6"
   },

@@ -1,17 +1,25 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" alt="">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-link to="/">Home</router-link>
+    <router-link to="/about">About</router-link>
+    <router-link to="/dashboard">Dashboard</router-link>
+    <button @click="loginDiscord">Login with discord</button>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/Home.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  methods: {
+    loginDiscord: function(event) {
+      window.location.href= window.location.origin + "/api/auth/discord"
+    }
   }
 }
 </script>
