@@ -4,8 +4,6 @@ const Discord = require('discord.js');
 const AutoPoster = require('topgg-autoposter');
 const botActivity = require('./helpers/botActivity');
 
-//const Server = require("./webserver/models/server");
-
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
