@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
-const { dbConnection } = require('../../database/config');
+const { dbConnection } = require('../../../database/config');
 const path = require('path');
 const hbs = require('hbs');
 const passport = require('../helpers/passport');
@@ -34,6 +34,8 @@ class Server {
         }));
         this.app.use(passport.initialize());
         this.app.use(passport.session());
+
+        this.app.use(express.static(path.join(__dirname, '../../frontend/public')));
 
 
         //Conectar base de datos
