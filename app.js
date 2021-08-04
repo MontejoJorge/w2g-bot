@@ -1,3 +1,4 @@
+require("./helpers/dev-prod");
 require("./bot");
 
 const Server = require("./webserver/backend/models/server");

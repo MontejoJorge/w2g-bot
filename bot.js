@@ -74,9 +74,10 @@ client.on('message', message => {
 
 });
 
-const ap = AutoPoster(TOP_GG_TOKEN, client);
-
-ap.on('posted', () => { console.log('Posted stats to top.gg') });
+if (process.env.NODE_ENV === "production") {
+    const ap = AutoPoster(TOP_GG_TOKEN, client);
+    ap.on('posted', () => { console.log('Posted stats to top.gg') });
+}
 
 client.login(DISCORD_TOKEN);
 
