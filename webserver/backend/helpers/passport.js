@@ -21,24 +21,28 @@ passport.use(new Strategy({
     prompt: prompt
 }, async (accessToken, refreshToken, profile, done) => {
 
-    const user = await User.findOne({ discordId: profile.id, });
+    const user = await User.findOneAndUpdate({ 
+        discordId: profile.id,
+    }, {
+        username: profile.username,
+        email: profile.email,
+        avatar: profile.avatar,
+        discordDiscriminator: profile.discriminator
+    });
 
     if (!user) {
-
+        
         User.create({
             username: profile.username,
             email: profile.email,
             avatar: profile.avatar,
             discordDiscriminator: profile.discriminator,
             discordId: profile.id
-            
-        }, function (err, profile) {
-            return done(err, profile);
         });
 
-    } else {
-        return done(null, profile);
     }
+
+    return done(null, profile);
 
 
 }));

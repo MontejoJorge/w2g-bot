@@ -24,7 +24,7 @@ const UserSchema = Schema({
         default: true
     },
     discordId: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
