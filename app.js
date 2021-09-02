@@ -1,3 +1,4 @@
+require('dotenv').config()
 require("./helpers/dev-prod");
 require("./bot");
 

@@ -1,23 +1,10 @@
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
-const { dbConnection } = require('../../../database/config');
+const { dbConnection } = require('../database/config');
 const path = require('path');
-const hbs = require('hbs');
 const passport = require('../helpers/passport');
 const history = require('connect-history-api-fallback');
-
-
-
-hbs.registerPartials('./webserver/views/templates', function (err) { });
-
-
-const routes = {
-    home: "/",
-    login: "/login",
-    logout: "/logout",
-    dashboard: "/dashboard"
-}
 
 class Server {
 
@@ -27,10 +14,6 @@ class Server {
         
         this.discordAuthPath = "/api/auth/discord";
         this.dashboardPath = "/api/dashboard";
-        
-        
-        this.app.set('views', path.join("./webserver/views"));
-        this.app.set('view engine', 'hbs');
         
         this.app.use(session({
             secret: process.env.SECRET_KEY,
