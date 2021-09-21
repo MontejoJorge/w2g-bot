@@ -1,33 +1,24 @@
 require('dotenv').config()
 const fs = require('fs');
-const Discord = require('discord.js');
-const AutoPoster = require('topgg-autoposter');
-const botActivity = require('./helpers/botActivity');
+const { Client, Collection, Intents } = require('discord.js');
 
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
-client.cooldowns = new Discord.Collection();
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+client.commands = new Collection();
+client.cooldowns = new Collection();
 
 const { prefix, DISCORD_TOKEN, TOP_GG_TOKEN } = process.env;
 
-//Buscamos los comandos en las subcarpetas de ./comands
-const commandFolders = fs.readdirSync('./commands');
+//Search events
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
-for (const folder of commandFolders) {
-
-    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
-
-    for (const file of commandFiles) {
-        const command = require(`./commands/${folder}/${file}`);
-        client.commands.set(command.name, command);
-    }
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
 }
-
-client.once('ready', () => {
-    console.log(`Ready on: ${client.guilds.cache.size} servers!`);
-
-    botActivity(client);
-});
 
 client.on('message', message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -73,10 +64,9 @@ client.on('message', message => {
     }
 
 });
+// const ap = AutoPoster(TOP_GG_TOKEN, client);
 
-const ap = AutoPoster(TOP_GG_TOKEN, client);
-
-ap.on('posted', () => { console.log('Posted stats to top.gg') });
+// ap.on('posted', () => { console.log('Posted stats to top.gg') });
 
 client.login(DISCORD_TOKEN);
 
