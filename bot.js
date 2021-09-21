@@ -1,12 +1,13 @@
 require('dotenv').config()
 const fs = require('fs');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, Intents } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.commands = new Collection();
-client.cooldowns = new Collection();
 
-const { prefix, DISCORD_TOKEN, TOP_GG_TOKEN } = process.env;
+const { DISCORD_TOKEN, DISCORD_CLIENT_ID, TOP_GG_TOKEN } = process.env;
 
 //Search events
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -20,53 +21,35 @@ for (const file of eventFiles) {
 	}
 }
 
-client.on('message', message => {
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+//Search commands
+const commands = [];
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-    //Obtenemos los argumentos y el comando
-    const args = message.content.slice(prefix.length).trim().split(' ');
-    const commandName = args.shift().toLowerCase();
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	commands.push(command.data.toJSON());
+}
 
-    //Si el comando no existe nos salimos
-    if (!client.commands.has(commandName)) return;
+const rest = new REST({ version: '9' }).setToken(token);
 
-    const command = client.commands.get(commandName);
+(async () => {
+	try {
+		console.log('Started refreshing application (/) commands.');
 
-    //Cooldowns
-    const { cooldowns } = client;
+        await rest.put(
+            Routes.applicationCommands(DISCORD_CLIENT_ID),
+            { body: commands },
+        );
 
-    if (!cooldowns.has(command.name)) {
-        cooldowns.set(command.name, new Discord.Collection());
-    }
+		console.log('Successfully reloaded application (/) commands.');
+	} catch (error) {
+		console.error(error);
+	}
+})();
 
-    const now = Date.now();
-    const timestamps = cooldowns.get(command.name);
-    const cooldownAmount = (command.cooldown || 3) * 1000;
+const ap = AutoPoster(TOP_GG_TOKEN, client);
 
-    if (timestamps.has(message.author.id)) {
-        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-        if (now < expirationTime) {
-            const timeLeft = (expirationTime - now) / 1000;
-            return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
-        }
-    }
-
-    timestamps.set(message.author.id, now);
-    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-
-    //Intentamos ejecutar el comando
-    try {
-        command.execute(message, args);
-    } catch (error) {
-        console.error(error);
-        message.reply('there was an error trying to execute that command!');
-    }
-
-});
-// const ap = AutoPoster(TOP_GG_TOKEN, client);
-
-// ap.on('posted', () => { console.log('Posted stats to top.gg') });
+ap.on('posted', () => { console.log('Posted stats to top.gg') });
 
 client.login(DISCORD_TOKEN);
 
