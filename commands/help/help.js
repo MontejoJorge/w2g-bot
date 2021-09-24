@@ -1,45 +1,28 @@
-const { prefix } = process.env;
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'help',
-    description: 'List all of my commands or info about a specific command.',
-    aliases: ['commands'],
-    usage: '[command name]',
-    cooldown: 5,
-    execute(message, args) {
+    data: new SlashCommandBuilder()
+        .setName("help")
+        .setDescription("List all of my commands or info about a specific command."),
+    async execute(interaction) {
 
-        const data = [];
-        const { commands } = message.client;
+        const embedHelp = new MessageEmbed()
+            .setColor("#FFCA1C")
+            .setTitle("Help")
+            .setDescription("Here\'s a list of all my commands:\n")
+            .setThumbnail(interaction.client.user.displayAvatarURL())
+            .setTimestamp()
 
-        if (!args.length) {
-            data.push('Here\'s a list of all my commands:\n');
-            data.push(commands.map( function(command) {
-                if (!command.hide){
-                    return `\`${prefix + command.name}\` : ${command.description}\n`
-                }
-            }
-            ).join(''));
-            data.push(`You can send \`${prefix}help [command name]\` to get info on a specific command!`);
+        interaction.client.commands.map(function (command) {
+            embedHelp.addField(`**${command.data.name}**:`, `${command.data.description}`)
+        });
 
-            return message.channel.send(data, { split: true });
-        }
+        //Add space to the end
+        embedHelp.addField("\u200B","\u200B");
 
-        const name = args[0].toLowerCase();
-        const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
+        await interaction.reply({ embeds: [embedHelp] });
 
-        if (!command) {
-            return message.reply('that\'s not a valid command!');
-        }
+    }
 
-        data.push(`**Name:** ${command.name}`);
-
-        if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
-        if (command.description) data.push(`**Description:** ${command.description}`);
-        if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
-
-        data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
-
-        message.channel.send(data, { split: true });
-
-    },
-};
+}
