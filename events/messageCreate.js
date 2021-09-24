@@ -5,11 +5,11 @@ module.exports = {
     once: false,
     async execute(interaction) {
 
+        if (!interaction.content.startsWith(process.env.prefix) || interaction.author.bot) return;
+
         const fin = new Date('November 1, 2021 00:00:00');
         const today = new Date();
         if (fin.getTime() < today.getTime()) return;
-
-        if (!interaction.content.startsWith(process.env.prefix) || interaction.author.bot) return;
 
         const command = interaction.client.commands.get(interaction.content.substring(1))
 
