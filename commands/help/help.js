@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,11 +18,14 @@ module.exports = {
             embedHelp.addField(`**${command.data.name}**:`, `${command.data.description}`)
         });
 
-        //Add space to the end
-        embedHelp.addField("\u200B","\u200B");
+        const permissions = interaction.channel.permissionsFor(interaction.client.user);
 
-        await interaction.reply({ embeds: [embedHelp] });
+        if (permissions.has(Permissions.FLAGS.EMBED_LINKS)) {
+            await interaction.reply({ embeds: [embedHelp] });
+        } else {
+            await interaction.user.send({ embeds: [embedHelp] });
+            await interaction.user.send("You received this message by DM because I do not have sufficient permissions to send it where you asked for it.");
+        }
 
     }
-
 }
