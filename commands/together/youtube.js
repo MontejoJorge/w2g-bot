@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const { DiscordTogether } = require('discord-together');
 
 const discordTogether = new DiscordTogether({ token: process.env.DISCORD_TOKEN });
@@ -10,24 +10,32 @@ module.exports = {
         .setDescription("Create a youtube together sesion."),
     async execute(interaction) {
 
+        const embedRoom = new MessageEmbed();
+
         if (interaction.member.voice.channel) {
 
             const link = await discordTogether.createTogetherCode(interaction.member.voice.channel.id, 'youtube')
                 .then(res => { return res.code });
 
-            const embedRoom = new MessageEmbed()
-                .setColor("#FFCA1C")
+            
+            embedRoom.setColor("#FFCA1C")
                 .setTitle("Youtube together session!")
                 .setDescription("Click on the link create the room.")
                 .setThumbnail(interaction.client.user.displayAvatarURL())
                 .addField("**Create Room:**", link)
 
-            await interaction.reply({ embeds: [embedRoom] });
-
         } else {
-            interaction.reply(`Please, join a voice channel.`)
+            interaction.reply(`Please, first join a voice channel.`)
         }
 
+        const permissions = interaction.channel.permissionsFor(interaction.client.user);
+
+        if (permissions.has(Permissions.FLAGS.EMBED_LINKS)) {
+            await interaction.reply({ embeds: [embedRoom] });
+        } else if (interaction.member.voice.channel) {
+            await interaction.user.send({ embeds: [embedRoom] });
+            await interaction.user.send("You received this message by DM because I do not have sufficient permissions to send it where you asked for it.");
+        }
 
     }
 }

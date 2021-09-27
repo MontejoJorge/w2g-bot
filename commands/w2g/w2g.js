@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const { w2gRoom } = require("../../helpers/w2gRoom");
 
 module.exports = {
@@ -26,6 +26,13 @@ module.exports = {
         if (url)
             embedRoom.addField("**Video:**", url);
 
-        await interaction.reply({ embeds: [embedRoom] });
+        const permissions = interaction.channel.permissionsFor(interaction.client.user);
+
+        if (permissions.has(Permissions.FLAGS.EMBED_LINKS)) {
+            await interaction.reply({ embeds: [embedRoom] });
+        } else {
+            await interaction.user.send({ embeds: [embedRoom] });
+            await interaction.user.send("You received this message by DM because I do not have sufficient permissions to send it where you asked for it.");
+        }
     }
 }
