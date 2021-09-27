@@ -4,7 +4,7 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isCommand()) return;
 
-        if (!interaction.client.commands.has(interaction.commandName)) return; if (!interaction.client.commands.has(interaction.commandName)) return;
+        if (!interaction.client.commands.has(interaction.commandName)) return;
 
         try {
             await interaction.client.commands
