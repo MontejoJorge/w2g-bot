@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "pm2 start app.js --time",
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "discord.js": "^13.1.0",
     "dotenv": "^8.6.0",
     "node-fetch": "^2.6.1",
+    "pm2": "^5.1.2",
     "topgg-autoposter": "^1.1.10"
   }
 }
