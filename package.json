@@ -13,10 +13,16 @@
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "discord-together": "^1.1.14",
     "discord.js": "^13.1.0",
     "dotenv": "^8.6.0",
-    "node-fetch": "^2.6.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.7",
+    "node-fetch": "^2.6.5",
     "pm2": "^5.1.2",
     "topgg-autoposter": "^1.1.10"
   }
