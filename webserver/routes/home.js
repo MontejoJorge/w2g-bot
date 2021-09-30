@@ -1,9 +1,9 @@
 const { homeGet } = require("../controllers/home");
-const { verifyJWT } = require("../middlewares/auth");
+const { auth } = require("../middlewares/auth");
 const router = require("express").Router();
 
 router.get("/",[
-    verifyJWT
+    auth
 ] , homeGet);
 
 module.exports = router;

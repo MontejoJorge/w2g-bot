@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/user");
 
-const verifyJWT = async (req, res = response, next) => {
+const auth = async (req, res = response, next) => {
 
     const { token } = req.signedCookies;
 
     if (!token) {
-        return res.redirect(401, "/login");
+        return res.redirect("/login");
     }
 
     try {
@@ -16,7 +16,7 @@ const verifyJWT = async (req, res = response, next) => {
         const user = await User.findOne({ discordId: id});
 
         if (!user || !user.enabled) {
-            return res.redirect(401, "/login");
+            return res.redirect("/login");
         }
 
         req.user = user;
@@ -25,12 +25,12 @@ const verifyJWT = async (req, res = response, next) => {
 
         console.error(error);
 
-        return res.redirect(401, "/");
+        return res.redirect("/login");
     }
 
     next();
 }
 
 module.exports = {
-    verifyJWT
+    auth
 }

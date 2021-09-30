@@ -1,7 +1,9 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const path = require('path');
+const flash = require('connect-flash');
 
 const { dbConnection } = require('../database/config');
 
@@ -13,13 +15,24 @@ class Server {
         this.port = process.env.PORT || 3000
 
         this.app.set('view engine', 'ejs');
-        this.app.set("views", path.join(__dirname, "../views"))
+        this.app.set("views", path.join(__dirname, "../views"));
 
-        this.routes();
+        this.app.use(session({
+            name: 'session',
+            resave: false,
+            saveUninitialized: true,
+            secret: process.env.SECRET_KEY,
+            cookie: {
+                maxAge: 28800000, //8h
+            }
+        }));
 
         this.conectDB();
 
         this.middlewares();
+
+        this.routes();
+
     }
 
     async conectDB() {
@@ -27,30 +40,28 @@ class Server {
     }
 
     middlewares() {
+        this.app.use(flash());
+
         this.app.use(cors());
 
         this.app.use(express.json());
+
+        this.app.use(express.urlencoded({ extended: true }));
+
     }
 
     routes() {
-        this.app.get("/", function (req, res) {
-            res.render("index");
-        });
+        this.app.use("/", require("../routes/index"));
 
         this.app.use("/home", require("../routes/home"));
 
-        this.app.get("/login", (req, res) => {
-            const oauth2 = new URL("https://discord.com/api/oauth2/authorize");
+        this.app.use("/dashboard", require("../routes/dashboard"))
 
-            oauth2.searchParams.append("client_id", process.env.DISCORD_CLIENT_ID);
-            oauth2.searchParams.append("redirect_uri", req.protocol + '://' + req.get('host') + "/auth/callback");
-            oauth2.searchParams.append("response_type", "code");
-            oauth2.searchParams.append("scope", "identify email");
-
-            res.redirect(oauth2);
-        });
+        this.app.use("/login", require("../routes/login"));
 
         this.app.use("/auth", require("../routes/auth"));
+
+        this.app.use("/api", require("../routes/api"));
 
     }
 

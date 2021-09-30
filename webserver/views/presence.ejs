@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presence</title>
+  </head>
+
+  <body>
+    <h1>Change bot presence</h1>
+    <% if (status.startsWith("Error")) { %>
+        <p>Error: <%= status %></p>
+    <% } else if (status) { %>
+        <p><%= status %></p>
+    <% } %>
+
+    <form action="/api/presence" method="post">
+
+        <% activities.forEach(activity => { %>
+            <input type="text" name="activity" value="<%= activity.name %>"/>
+            <select name="type" id="">
+              <option <%= (activity.type=="PLAYING") ? "selected='selected'" : '' %> value="PLAYING">PLAYING</option>
+              <option <%= (activity.type=="LISTENING") ? "selected='selected'" : '' %> value="LISTENING">LISTENING</option>
+              <option <%= (activity.type=="WATCHING") ? "selected='selected'" : '' %> value="WATCHING">WATCHING</option>
+              <option <%= (activity.type=="COMPETING") ? "selected='selected'" : '' %> value="COMPETING">COMPETING</option>
+            </select>
+            <br>
+        <% }) %>
+      <input type="text" name="activity" id=""/>
+      <select name="type" id="">
+        <option value="PLAYING">PLAYING</option>
+        <option value="LISTENING">LISTENING</option>
+        <option value="WATCHING">WATCHING</option>
+        <option value="COMPETING">COMPETING</option>
+      </select>
+      <br/>
+      <input type="submit" value="Submit"/><br/>
+    </form>
+  </body>
+</html>

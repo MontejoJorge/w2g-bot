@@ -24,7 +24,7 @@ const discordLogin = async (req, res = response) => {
 
         const token = await generateJWT(dcProfile.id);
 
-        res.cookie("token", token, {signed: true});
+        res.cookie("token", token, {signed: true, maxAge: 28800000});
 
         res.redirect("/home");
 
