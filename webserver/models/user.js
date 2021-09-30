@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const Role = require("./role");
 
 const UserSchema = Schema({
     username: {
@@ -17,7 +18,8 @@ const UserSchema = Schema({
     role: {
         type: String,
         default: "user",
-        required: true
+        required: true,
+        validate: [roleExists, "The role: {VALUE} does not exist"]
     },
     enabled: {
         type: Boolean,
@@ -39,6 +41,15 @@ const UserSchema = Schema({
         currentTime: () => Math.floor(Date.now() / 1000)
     }
 });
+
+async function roleExists(newRole) {
+    const role = await Role.findOne({name: newRole});
+    console.log(role, newRole);
+    if (!role) {
+        return false;
+    }
+    return true;
+}
 
 UserSchema.methods.toJSON = function () {
     const { __v, _id, ...user } = this.toObject();
