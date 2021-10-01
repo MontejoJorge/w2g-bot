@@ -39,9 +39,10 @@ function presenceInterval(client) {
         state = (state + 1) % activities.length;
     
         var { name, type } = activities[state];
+        name = name.replace("guild.count", `${client.guilds.cache.size}`)
 
         client.user.setPresence({ activities: [{ name, type }], status: 'online' });
-    
+
     }, intervalTime);
 }
 
