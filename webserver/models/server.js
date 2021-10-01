@@ -43,6 +43,13 @@ class Server {
     middlewares() {
         this.app.use(flash());
 
+        //Expose flash to all views
+        this.app.use((req, res, next) => {
+            res.locals.successfull = req.flash("successfull");
+            res.locals.error = req.flash("error");
+            next();
+        })
+
         this.app.use(cors());
 
         this.app.use(express.json());

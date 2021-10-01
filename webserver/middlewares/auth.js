@@ -21,6 +21,7 @@ const auth = async (req, res = response, next) => {
         }
 
         req.user = user;
+        res.locals.user = user;
 
     } catch (error) {
 

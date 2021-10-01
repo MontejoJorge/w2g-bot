@@ -39,19 +39,18 @@
 			<div class="container-sm rounded pt-3 pb-1 bg-light border" id="presenceForm">
 
 				<div class="container">
-					<% if (status.startsWith("Error")) { %>
+					<% if (error.length > 0) { %>
 						<div class="alert alert-dranger alert-dismissible fade show" role="alert">
-							<%= status %>
-								<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+							<%= error %>
+							<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 						</div>
-					<% } else if (status) { %>
+					<% } if (successfull.length > 0) { %>
 						<div class="alert alert-success alert-dismissible fade show" role="alert">
-							<%= status %>
-								<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+							<%= successfull %>
+							<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 						</div>
 					<% } %>
 				</div>
-
 				<form action="/api/presence" method="post" autocomplete="off" class="p-3">
 					<div class="row">
 						<label class="col-6">
