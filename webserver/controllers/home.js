@@ -1,8 +1,6 @@
 
 const homeGet = (req, res = response) => {
-    res.render("home", {
-        user: req.user
-    })
+    res.render("home", {});
 }
 
 module.exports = {

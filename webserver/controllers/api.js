@@ -23,9 +23,9 @@ const presencePost = async (req, res) => {
     await Activity.deleteMany({});
 
     await Activity.insertMany(activities)
-        .then(req.flash('status', 'Operation completed successfully'))
+        .then(req.flash('successfull', 'Operation completed successfully'))
         .catch((err) => {
-            req.flash('status', 'Error: Something went wrong');
+            req.flash('error', 'Error: Something went wrong');
             console.error(err);
         });
 
