@@ -44,7 +44,6 @@ const UserSchema = Schema({
 
 async function roleExists(newRole) {
     const role = await Role.findOne({name: newRole});
-    console.log(role, newRole);
     if (!role) {
         return false;
     }

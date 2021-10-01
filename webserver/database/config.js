@@ -24,7 +24,7 @@ const dbConnection = async() => {
             });
         
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error("Error connecting to database")
     }
 
