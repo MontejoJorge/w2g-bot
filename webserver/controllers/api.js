@@ -15,6 +15,11 @@ const presencePost = async (req, res) => {
     for (let i = 0; i < req.body.activity.length; i++) {
         if (!req.body.activity[i]) continue;
 
+        if (req.body.activity[i].length > 35) {
+            req.flash('error', 'Error: Something went wrong.');
+            return res.redirect('back');
+        }
+
         activities.push({
             name: req.body.activity[i],
             type: req.body.type[i]
@@ -23,9 +28,9 @@ const presencePost = async (req, res) => {
     await Activity.deleteMany({});
 
     await Activity.insertMany(activities)
-        .then(req.flash('successfull', 'Operation completed successfully'))
+        .then(req.flash('successfull', 'Operation completed successfully.'))
         .catch((err) => {
-            req.flash('error', 'Error: Something went wrong');
+            req.flash('error', 'Error: Something went wrong.');
             console.error(err);
         });
 
