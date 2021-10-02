@@ -20,4 +20,4 @@ const ActivitySchema = Schema({
 
 ActivitySchema.set('toJSON', { virtuals: true })
 
-module.exports = model("Actvity", ActivitySchema);
+module.exports = model("Activity", ActivitySchema);
