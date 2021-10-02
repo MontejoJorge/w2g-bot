@@ -9,6 +9,7 @@
 <body>
 	<%- include("templates/bootstrap") %>
 	<%- include("templates/navbar") %>
+	<script src="../js/presence.js"></script>
 
 		<div class="container-fluid bg-light pb-3">
 			<div class="container-sm rounded pt-3 pb-1 text-center" id="title">
@@ -51,7 +52,7 @@
 						</div>
 					<% } %>
 				</div>
-				<form action="/api/presence" method="post" autocomplete="off" class="p-3">
+				<form action="/api/presence" method="post" autocomplete="off" class="p-3 presence-form">
 					<div class="row">
 						<label class="col-6">
 							<h3>Name</h3>
@@ -61,7 +62,7 @@
 						</label>
 					</div>
 					<% activities.forEach(activity=> { %>
-						<div class="row g-2 g-sm-3 align-items-center pt-3">
+						<div class="row g-2 g-sm-3 align-items-center pt-3 activity-row">
 							<div class="col-6">
 								<input type="text" name="activity" value="<%= activity.name %>"
 									class="form-control form-control-sm">
@@ -79,29 +80,29 @@
 								</select>
 							</div>
 							<div class="col-1">
-								<button type="button" class="btn-close" aria-label="Close"></button>
+								<button type="button" class="btn-close remove-activity" aria-label="Close"></button>
 							</div>
 						</div>
 						<% }) %>
 
-							<div class="row g-2 g-sm-3 align-items-center pt-3 pb-3">
-								<div class="col-6">
-									<input type="text" name="activity" class="form-control form-control-sm">
-								</div>
-								<div class="col-5">
-									<select class="form-select form-select-sm" name="type">
-										<option value="PLAYING">Playing</option>
-										<option value="LISTENING">Listening</option>
-										<option value="WATCHING">Watching</option>
-										<option value="COMPETING">Competing</option>
-									</select>
-								</div>
-								<div class="col-1">
-									<button type="button" class="btn-close" aria-label="Close"></button>
-								</div>
+						<div class="row g-2 g-sm-3 align-items-center pt-3 activity-row latest">
+							<div class="col-6">
+								<input type="text" name="activity" class="form-control form-control-sm">
 							</div>
-
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<div class="col-5">
+								<select class="form-select form-select-sm" name="type">
+									<option value="PLAYING">Playing</option>
+									<option value="LISTENING">Listening</option>
+									<option value="WATCHING">Watching</option>
+									<option value="COMPETING">Competing</option>
+								</select>
+							</div>
+							<div class="col-1">
+								<button type="button" class="btn-close remove-activity" aria-label="Close"></button>
+							</div>
+						</div>
+						<a class="btn btn-secondary mt-3" href="javascript:addAcitity()" role="button">Add New</a>
+						<button type="submit" class="btn btn-primary mt-3">Submit</button>
 				</form>
 			</div>
 
