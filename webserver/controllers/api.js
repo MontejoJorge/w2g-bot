@@ -1,3 +1,4 @@
+const { announcement } = require("../../helpers/announcement");
 const { setBotPresence } = require("../../helpers/botPresence");
 const Activity = require("../models/activity");
 
@@ -40,7 +41,22 @@ const presencePost = async (req, res) => {
 
 }
 
+const announcementPost = (req, res) => {
+    const announcementText = req.body.announcementText;
+
+    if (announcementText.length > 2000) {
+        req.flash('error', 'Error: Maximum allowed length of 2000 characters');
+        return res.redirect('back');
+    }
+
+    announcement(announcementText);
+
+    req.flash('successfull', 'Operation completed successfully.');
+    return res.redirect('back');
+}
+
 
 module.exports = {
-    presencePost
+    presencePost,
+    announcementPost
 }
