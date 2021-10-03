@@ -9,6 +9,11 @@ const presenceGet = async (req, res) => {
     });
 }
 
+const announcementGet = (req, res) => {
+    res.render("announcement");
+}
+
 module.exports = {
-    presenceGet
+    presenceGet,
+    announcementGet
 }
