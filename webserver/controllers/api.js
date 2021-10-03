@@ -16,7 +16,7 @@ const presencePost = async (req, res) => {
         if (!req.body.activity[i]) continue;
 
         if (req.body.activity[i].length > 35) {
-            req.flash('error', 'Error: Something went wrong.');
+            req.flash('error', 'Error: Maximum allowed length for name is 35 characters');
             return res.redirect('back');
         }
 
