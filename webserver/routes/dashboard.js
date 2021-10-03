@@ -1,4 +1,4 @@
-const {  presenceGet } = require("../controllers/dashboard");
+const {  presenceGet, announcementGet } = require("../controllers/dashboard");
 const { auth, hasRole } = require("../middlewares/auth");
 
 const router = require("express").Router();
@@ -9,5 +9,6 @@ router.use("/", [
 ]);
 
 router.get("/presence", presenceGet);
+router.get("/announcement", announcementGet);
 
 module.exports = router;
