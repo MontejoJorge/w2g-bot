@@ -23,10 +23,16 @@
             </ul>
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <img class="rounded-circle float-start" id="profileImage" src="https://cdn.discordapp.com/avatars/<%= user.discordId%>/<%= user.avatar%>.png">
-                        <span class="d-inline ps-2"><%= user.username%></span>
-                    </a>
+                    <% if (locals.user) { %>
+                        <a href="" class="nav-link">
+                            <img class="rounded-circle float-start" id="profileImage" src="https://cdn.discordapp.com/avatars/<%= user.discordId%>/<%= user.avatar%>.png">
+                            <span class="d-inline ps-2"><%= user.username%></span>   
+                        </a>
+                    <% } else { %>
+                        <a href="/login" class="nav-link">
+                            <span class="d-inline ps-2">Login!</span>
+                        </a>
+                    <% } %>
                 </li>
             </ul>
         </div>
