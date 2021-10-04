@@ -9,6 +9,7 @@
 <body>
     <%- include("templates/bootstrap") %>
     <%- include("templates/navbar") %>
+    <script src="../js/announcement.js"></script>
 
     <div class="container-fluid bg-light pb-3">
         <div class="container-sm rounded pt-3 pb-1 text-center" id="title">
@@ -17,11 +18,11 @@
         </div>
         
 
-        <div class="container-sm rounded pt-3 pb-1 bg-light border" id="presenceForm">
+        <div class="container-sm rounded pt-3 pb-1 bg-light border" id="announcementContainer">
 
             <div class="container">
                 <% if (error.length > 0) { %>
-                    <div class="alert alert-dranger alert-dismissible fade show" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <%= error %>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
@@ -32,7 +33,7 @@
                     </div>
                 <% } %>
             </div>
-            <form action="/api/announcement" method="post" autocomplete="off" class="p-3">
+            <form action="/api/announcement" method="post" autocomplete="off" class="p-3" id="announcementForm">
                 <div class="row">
                     <label class="col">
                         <h3>Announcement text</h3>
@@ -41,8 +42,9 @@
 
                 <div class="row g-2 g-sm-3 align-items-center pt-3">
                     <textarea class="form-control" placeholder="Write the announcement here" name="announcementText" style="height: 100px"></textarea>
+                    <div class="invalid-feedback">Insert an announcement between 1 and 2000 characters long.</div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                <a href="javascript:validForm()" class="btn btn-primary mt-3">Submit</a>
             </form>
         </div>
 

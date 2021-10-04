@@ -44,7 +44,7 @@ const presencePost = async (req, res) => {
 const announcementPost = (req, res) => {
     const announcementText = req.body.announcementText;
 
-    if (announcementText) {
+    if (!announcementText) {
         req.flash('error', 'Error: Something went wrong.');
         return res.redirect('back');
     }
