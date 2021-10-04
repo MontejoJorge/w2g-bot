@@ -44,8 +44,30 @@
                     <textarea class="form-control" placeholder="Write the announcement here" name="announcementText" style="height: 100px"></textarea>
                     <div class="invalid-feedback">Insert an announcement between 1 and 2000 characters long.</div>
                 </div>
-                <a href="javascript:validForm()" class="btn btn-primary mt-3">Submit</a>
-            </form>
+                
+                <button type="button" class="btn btn-primary mt-3" id="submitAnnouncement" data-bs-toggle="modal" data-bs-target="#announcementModal">
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    Submit
+                </button>
+
+                <div class="modal fade" id="announcementModal" tabindex="-1">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                        This message will be sent to all guilds, are you sure you want to continue?
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="javascript:validForm()" class="btn btn-primary">Submit</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </form>  
         </div>
 
     </div>
