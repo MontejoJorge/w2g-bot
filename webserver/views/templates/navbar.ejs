@@ -24,13 +24,18 @@
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li class="nav-item">
                     <% if (locals.user) { %>
-                        <a href="" class="nav-link">
-                            <img class="rounded-circle float-start" id="profileImage" src="https://cdn.discordapp.com/avatars/<%= user.discordId%>/<%= user.avatar%>.png">
-                            <span class="d-inline ps-2"><%= user.username%></span>   
-                        </a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <img class="rounded-circle float-start" id="profileImage" src="https://cdn.discordapp.com/avatars/<%= user.discordId%>/<%= user.avatar%>.png">
+                                <span class="d-inline ps-2"><%= user.username%></span>  
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
                     <% } else { %>
                         <a href="/login" class="nav-link">
-                            <span class="d-inline ps-2">Login!</span>
+                            <span class="d-inline">Login!</span>
                         </a>
                     <% } %>
                 </li>

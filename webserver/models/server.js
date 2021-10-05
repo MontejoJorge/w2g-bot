@@ -67,6 +67,8 @@ class Server {
 
         this.app.use("/login", require("../routes/login"));
 
+        this.app.use("/logout", require("../routes/logout"));
+
         this.app.use("/auth", require("../routes/auth"));
 
         this.app.use("/api", require("../routes/api"));
