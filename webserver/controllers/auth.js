@@ -4,7 +4,15 @@ const { generateJWT } = require("../helpers/jwt");
 
 const discordLogin = async (req, res = response) => {
 
-    if (!req.query.code) res.redirect(401, "/");
+    if (!req.query.code) {
+
+        res.status(401);
+        return res.render("error", {
+            code: 401,
+            msg: "Unauthorized"
+        });
+
+    }
 
     try {
 
@@ -37,7 +45,9 @@ const discordLogin = async (req, res = response) => {
 
         console.error(error);
 
-        return res.status(500).json({
+        res.status(500);
+        return res.render("error", {
+            code: 500,
             msg: "Internal server error"
         });
     }
