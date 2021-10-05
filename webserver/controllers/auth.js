@@ -39,7 +39,7 @@ const discordLogin = async (req, res = response) => {
 
         res.cookie("token", token, { signed: true, maxAge: 28800000,  httpOnly: true });
 
-        res.redirect("/home");
+        res.redirect("/dashboard");
 
     } catch (error) {
 

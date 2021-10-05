@@ -67,8 +67,6 @@ class Server {
 
         this.app.use("/auth", require("../routes/auth"));
 
-        this.app.use("/home", require("../routes/home"));
-
         this.app.use("/dashboard", require("../routes/dashboard"));
 
         this.app.use("/admin" ,require("../routes/admin"));
