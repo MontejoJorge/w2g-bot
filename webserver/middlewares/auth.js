@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/user");
-const { check } = require("express-validator");
 
 const auth = async (req, res = response, next) => {
 
@@ -37,7 +36,11 @@ const hasRole = (roles) => {
     return async function (req, res, next) {
         const user = await User.findById(req.user.id);
         if (!user || !roles.includes(user.role)) {
-            return res.redirect("back");
+            res.status(403);
+            return res.render("error", {
+                code: 403,
+                msg: "Forbidden"
+            });
         }
         next();
     }
