@@ -29,7 +29,7 @@ const discordLogin = async (req, res = response) => {
 
         const token = await generateJWT(dcProfile.id);
 
-        res.cookie("token", token, { signed: true, maxAge: 28800000 });
+        res.cookie("token", token, { signed: true, maxAge: 28800000,  httpOnly: true });
 
         res.redirect("/home");
 
