@@ -21,7 +21,7 @@ const discordLogin = async (req, res = response) => {
                 discordId: dcProfile.id
             })
                 .catch((error) => {
-                    console.err(error);
+                    console.error(error);
                     req.flash("status", "Error: Something went wrong");
                     res.redirect("/")
                 });
