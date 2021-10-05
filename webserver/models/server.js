@@ -61,15 +61,17 @@ class Server {
     routes() {
         this.app.use("/", require("../routes/index"));
 
-        this.app.use("/home", require("../routes/home"));
-
-        this.app.use("/dashboard", require("../routes/dashboard"))
-
         this.app.use("/login", require("../routes/login"));
 
         this.app.use("/logout", require("../routes/logout"));
 
         this.app.use("/auth", require("../routes/auth"));
+
+        this.app.use("/home", require("../routes/home"));
+
+        this.app.use("/dashboard", require("../routes/dashboard"));
+
+        this.app.use("/admin" ,require("../routes/admin"));
 
         this.app.use("/api", require("../routes/api"));
 
@@ -79,7 +81,7 @@ class Server {
                 code: 404,
                 msg: "Not Found"
             });
-        })
+        });
 
     }
 

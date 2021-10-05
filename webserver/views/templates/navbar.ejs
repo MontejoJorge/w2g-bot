@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Better-bot</a>
+        <a class="navbar-brand" href="/">Better-bot</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
             aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,15 +11,24 @@
                     <a class="nav-link" href="/home">Home</a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <li class="nav-item">
+                    <a class="nav-link " href="/dashboard">
                         Dashboard
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/dashboard/presence">Presence</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/announcement">Announcement</a></li>
-                    </ul>
                 </li>
+                <% if (locals.user) { %>
+                    <% if (user.role == "admin") { %>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/admin/presence">Presence</a></li>
+                                <li><a class="dropdown-item" href="/admin/announcement">Announcement</a></li>
+                            </ul>
+                        </li>
+                    <% } %>
+                <% } %>
             </ul>
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li class="nav-item">
