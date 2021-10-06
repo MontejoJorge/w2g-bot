@@ -4,11 +4,75 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Better-bot</title>
 </head>
+
 <body>
     <%- include("templates/bootstrap") %>
     <%- include("templates/navbar") %>
+
+    <div class="container py-3">
+        <header>      
+          <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal">Welcome!</h1>
+          </div>
+        </header>
+      
+        <main>
+          <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+              <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                  <h4 class="my-0 fw-normal">Invite the bot</h4>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled mb-4">
+                    <li>+450 servers</li>
+                    <li>Slash commands</li>
+                    <li>Youtube together</li>
+                    <li>And more!</li>
+                  </ul>
+                  <a href="<%= botLink %>" target="_blank" class="w-100 btn btn-lg btn-primary">Invite the bot now!</a>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                  <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">Comming Soon</h4>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-unstyled mb-4">
+                      <li>Custom options</li>
+                      <li>Advanced dashboard</li>
+                      <li>Server stats</li>
+                      <li>And more!</li>
+                    </ul>
+                    <a href="<%= loginLink %>" class="w-100 btn btn-lg btn-primary">Login now!</a>
+                  </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                  <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">Send suggestion</h4>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-unstyled mb-4">
+                      <li>Send possible features</li>
+                      <li>Send feedback</li>
+                      <li>Send bug reports</li>
+                      <li><br></li>
+                    </ul>
+                    <a href="<%= suggestionLink %>" class="w-100 btn btn-lg btn-primary">Send suggestion now!</a>
+                  </div>
+                </div>
+            </div>
+          </div>
+      
+        </main>
+      
+      </div>
 
 </body>
 </html>
