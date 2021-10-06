@@ -4,16 +4,15 @@ const { presenceValidator, announcementValidator, suggestionValidator } = requir
 
 const router = require("express").Router();
 
-router.use("/", [
-    auth,
-    hasRole(["admin"])
-]);
+router.use("/", auth);
 
 router.post("/presence", [
+    hasRole(["admin"]),
     presenceValidator
 ],presencePost);
 
 router.post("/announcement", [
+    hasRole(["admin"]),
     announcementValidator
 ],announcementPost);
 
