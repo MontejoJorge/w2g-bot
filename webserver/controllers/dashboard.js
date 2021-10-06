@@ -13,7 +13,12 @@ const announcementGet = (req, res) => {
     res.render("announcement");
 }
 
+const suggestionGet = (req, res) => {
+    res.render("suggestion");
+}
+
 module.exports = {
     presenceGet,
-    announcementGet
+    announcementGet,
+    suggestionGet
 }

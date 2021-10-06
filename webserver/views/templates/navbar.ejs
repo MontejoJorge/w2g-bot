@@ -6,10 +6,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " href="/dashboard">
-                        Dashboard
-                    </a>
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                            Dashboard
+                        </a>
+                      
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                          <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                          <li><a class="dropdown-item" href="/dashboard/suggestion">Suggestion</a></li>
+                        </ul>
+                      </div>
                 </li>
                 <% if (locals.user) { %>
                     <% if (user.role == "admin") { %>
@@ -17,7 +25,7 @@
                             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
                                 Admin
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dropdown-menu dropdown-menu-dark">
                                 <li><a class="dropdown-item" href="/admin/presence">Presence</a></li>
                                 <li><a class="dropdown-item" href="/admin/announcement">Announcement</a></li>
                             </ul>
@@ -29,11 +37,11 @@
                 <li class="nav-item">
                     <% if (locals.user) { %>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle"role="button" data-bs-toggle="dropdown">
                                 <img class="rounded-circle float-start" id="profileImage" src="https://cdn.discordapp.com/avatars/<%= user.discordId%>/<%= user.avatar%>.png">
                                 <span class="d-inline ps-2"><%= user.username%></span>  
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             </ul>
                         </li>

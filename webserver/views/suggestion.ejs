@@ -3,7 +3,7 @@
 <html lang="es">
 
 <head>
-    <%- include("templates/head", {title: "Announcement" }) %>
+    <%- include("templates/head", {title: "Suggestion" }) %>
 </head>
 
 <body>
@@ -12,12 +12,12 @@
 
     <div class="container-fluid bg-light pb-3">
         <div class="container-sm rounded pt-3 pb-1 text-center" id="title">
-            <h1 class="display-4">Announcement</h1>
-            <p class="lead">Send announcement to every guild.</p>
+            <h1 class="display-4">Suggestion</h1>
+            <p class="lead">Send suggestion to every guild.</p>
         </div>
         
 
-        <div class="container-sm rounded pt-3 pb-1 bg-light border" id="announcementContainer">
+        <div class="container-sm rounded pt-3 pb-1 bg-light border" id="suggestionContainer">
 
             <div class="container">
                 <% if (error.length > 0) { %>
@@ -32,24 +32,24 @@
                     </div>
                 <% } %>
             </div>
-            <form action="/api/announcement" method="post" autocomplete="off" class="p-3" id="announcementForm">
+            <form action="/api/suggestion" method="post" autocomplete="off" class="p-3" id="suggestionForm">
                 <div class="row">
                     <label class="col">
-                        <h3>Announcement text</h3>
+                        <h3>Suggestion text</h3>
                     </label>
                 </div>
 
                 <div class="row g-2 g-sm-3 align-items-center pt-3">
-                    <textarea class="form-control" placeholder="Write the announcement here" name="announcementText" style="height: 100px"></textarea>
-                    <div class="invalid-feedback">Insert an announcement between 1 and 2000 characters long.</div>
+                    <textarea class="form-control" placeholder="Write the suggestion here" name="suggestionText" style="height: 100px"></textarea>
+                    <div class="invalid-feedback">Insert an suggestion between 1 and 2000 characters long.</div>
                 </div>
                 
-                <button type="button" class="btn btn-primary mt-3" id="submitAnnouncement" data-bs-toggle="modal" data-bs-target="#announcementModal">
+                <button type="button" class="btn btn-primary mt-3" id="submitSuggestion" data-bs-toggle="modal" data-bs-target="#suggestionModal">
                     <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                     Submit
                 </button>
 
-                <div class="modal fade" id="announcementModal" tabindex="-1">
+                <div class="modal fade" id="suggestionModal" tabindex="-1">
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
