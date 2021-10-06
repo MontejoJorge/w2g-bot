@@ -31,7 +31,7 @@ const discordLogin = async (req, res = response) => {
                 .catch((error) => {
                     console.error(error);
                     req.flash("status", "Error: Something went wrong");
-                    res.redirect("/")
+                    return res.redirect("/")
                 });
         }
 
