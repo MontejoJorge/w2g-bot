@@ -1,6 +1,7 @@
 const { announcement } = require("../../helpers/announcement");
 const { setBotPresence } = require("../../helpers/botPresence");
 const Activity = require("../models/activity");
+const Suggestion = require("../models/suggestion");
 
 const presencePost = async (req, res) => {
     await Activity.deleteMany({});
@@ -25,8 +26,19 @@ const announcementPost = (req, res) => {
     return res.redirect('back');
 }
 
+const suggestionPost = async (req, res) => {
+    await Suggestion.create({text: req.body.suggestionText})
+    .then(req.flash('successfull', 'Operation completed successfully.'))
+    .catch((err) => {
+        req.flash('error', 'Error: Something went wrong.');
+        console.error(err);
+    });
+
+    res.redirect('back');
+}
 
 module.exports = {
     presencePost,
-    announcementPost
+    announcementPost,
+    suggestionPost
 }

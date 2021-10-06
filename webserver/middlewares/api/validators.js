@@ -37,7 +37,17 @@ const announcementValidator = (req, res, next) => {
     next();
 }
 
+const suggestionValidator = (req, res, next) => {
+    if (!req.body.suggestionText || req.body.suggestionText.length > 2000) {
+        req.flash('error', 'Insert an suggestion between 1 and 2000 characters long.');
+        return res.redirect('back');
+    }
+
+    next();
+}
+
 module.exports = {
     presenceValidator,
-    announcementValidator
+    announcementValidator,
+    suggestionValidator
 }
