@@ -1,6 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const suggestionSchema = Schema({
+    user: {
+        type: String,
+        required: true
+    },
     text: {
         type: String,
         required: true

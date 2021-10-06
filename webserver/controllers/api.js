@@ -27,7 +27,10 @@ const announcementPost = (req, res) => {
 }
 
 const suggestionPost = async (req, res) => {
-    await Suggestion.create({text: req.body.suggestionText})
+    await Suggestion.create({
+        text: req.body.suggestionText,
+        user: req.user.id
+    })
     .then(req.flash('successfull', 'Operation completed successfully.'))
     .catch((err) => {
         req.flash('error', 'Error: Something went wrong.');
