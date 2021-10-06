@@ -13,7 +13,7 @@
     <div class="container-fluid bg-light pb-3">
         <div class="container-sm rounded pt-3 pb-1 text-center" id="title">
             <h1 class="display-4">Suggestion</h1>
-            <p class="lead">Send suggestion to every guild.</p>
+            <p class="lead">Send a suggestion that can be accepted and included.</p>
         </div>
         
 
@@ -43,29 +43,8 @@
                     <textarea class="form-control" placeholder="Write the suggestion here" name="suggestionText" style="height: 100px"></textarea>
                     <div class="invalid-feedback">Insert an suggestion between 1 and 2000 characters long.</div>
                 </div>
-                
-                <button type="button" class="btn btn-primary mt-3" id="submitSuggestion" data-bs-toggle="modal" data-bs-target="#suggestionModal">
-                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                    Submit
-                </button>
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
 
-                <div class="modal fade" id="suggestionModal" tabindex="-1">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                        This message will be sent to all guilds, are you sure you want to continue?
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        </div>
-                    </div>
-                    </div>
-                </div>
             </form>  
         </div>
 
