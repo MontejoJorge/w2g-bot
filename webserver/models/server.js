@@ -13,6 +13,7 @@ class Server {
         this.app = express();
         this.app.use(cookieParser(process.env.SECRET_KEY));
         this.port = process.env.PORT || 3000
+        this.app.enable('trust proxy');
 
         this.app.set('view engine', 'ejs');
         this.app.set("views", path.join(__dirname, "../views"));
