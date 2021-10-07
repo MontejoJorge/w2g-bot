@@ -1,10 +1,10 @@
 const { presencePost, announcementPost, suggestionPost } = require("../controllers/api");
-const { auth, hasRole } = require("../middlewares/auth");
+const { needAuth, hasRole } = require("../middlewares/auth");
 const { presenceValidator, announcementValidator, suggestionValidator } = require("../middlewares/api/validators");
 
 const router = require("express").Router();
 
-router.use("/", auth);
+router.use("/", needAuth(true));
 
 router.post("/presence", [
     hasRole(["admin"]),

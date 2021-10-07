@@ -1,10 +1,10 @@
 const {  presenceGet, announcementGet } = require("../controllers/dashboard");
-const { auth, hasRole } = require("../middlewares/auth");
+const { needAuth, hasRole } = require("../middlewares/auth");
 
 const router = require("express").Router();
 
 router.use("/", [
-    auth,
+    needAuth(true),
     hasRole(["admin"])
 ]);
 

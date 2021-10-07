@@ -1,35 +1,43 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/user");
 
-const auth = async (req, res = response, next) => {
+const needAuth = (needAuth) => {
 
-    const { token } = req.signedCookies;
+    return async (req, res, next) => {
 
-    if (!token) {
-        return res.redirect("/login");
-    }
+        res.locals.user = "";
 
-    try {
+        const { token } = req.signedCookies;
 
-        const { id } = jwt.verify(token, process.env.SECRET_KEY);
-
-        const user = await User.findOne({ discordId: id });
-
-        if (!user || !user.enabled) {
+        if (!token && needAuth) {
             return res.redirect("/login");
         }
 
-        req.user = user;
-        res.locals.user = user;
+        try {
 
-    } catch (error) {
+            if (token) {
+                const { id } = jwt.verify(token, process.env.SECRET_KEY);
+    
+                const user = await User.findOne({ discordId: id });
+        
+                if ((!user || !user.enabled) && needAuth) {
+                    return res.redirect("/login");
+                }
+        
+                req.user = user;
+                res.locals.user = user;
+            }
+    
+        } catch (error) {
+    
+            console.error(error);
+    
+            return res.redirect("/login");
+        }
 
-        console.error(error);
-
-        return res.redirect("/login");
+        next();
     }
 
-    next();
 }
 
 const hasRole = (roles) => {
@@ -47,6 +55,6 @@ const hasRole = (roles) => {
 }
 
 module.exports = {
-    auth,
+    needAuth,
     hasRole
 }
