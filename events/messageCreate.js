@@ -17,7 +17,7 @@ module.exports = {
 
             const permissions = interaction.channel.permissionsFor(interaction.client.user);
 
-            if (permissions.has(Permissions.FLAGS.EMBED_LINKS)) return;
+            if (!permissions.has(Permissions.FLAGS.EMBED_LINKS)) return;
 
             const embedWarn = new MessageEmbed()
                 .setColor("#F70000")
@@ -42,20 +42,22 @@ module.exports = {
                 .setThumbnail(interaction.client.user.displayAvatarURL())
 
             await interaction.channel.send({ embeds: [embedUpdate] })
+
+            try {
+
+                command.execute(interaction);
+    
+            } catch (error) {
+    
+                console.error(error);
+    
+                return interaction.reply({
+                    content: 'There was an error while executing this command!',
+                    ephemeral: true
+                });
+            }
         }
 
-        try {
 
-            command.execute(interaction);
-
-        } catch (error) {
-
-            console.error(error);
-
-            return interaction.reply({
-                content: 'There was an error while executing this command!',
-                ephemeral: true
-            });
-        }
     }
 }

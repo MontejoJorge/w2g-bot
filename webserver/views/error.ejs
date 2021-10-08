@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include("templates/head", {title: "Error" }) %>
+</head>
+
+
+<body>
+    <%- include("templates/bootstrap") %>
+        <div class="page-wrap d-flex flex-row align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center mt-5">
+                        <span class="display-1 d-block"><%= code %> </span>
+                        <div class="mb-4 lead"><%= msg %> </div>
+                        <a href="/" class="btn btn-primary">Back to Home</a>
+                        <% if (!locals.user && code == 401) { %>
+                        <a href="#" class="btn btn-secondary">Login</a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+</body>
+
+</html>

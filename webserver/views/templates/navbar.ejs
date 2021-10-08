@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Better-bot</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav">
+                <% if (locals.user) { %>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                            Dashboard
+                        </a>
+                      
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                          <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                          <li><a class="dropdown-item" href="/dashboard/suggestion">Suggestions</a></li>
+                        </ul>
+                      </div>
+                </li>
+                    <% if (user.role == "admin") { %>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="/admin/presence">Presence</a></li>
+                                <li><a class="dropdown-item" href="/admin/announcement">Announcement</a></li>
+                            </ul>
+                        </li>
+                    <% } %>
+                <% } %>
+            </ul>
+            <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                <li class="nav-item">
+                    <% if (locals.user) { %>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"role="button" data-bs-toggle="dropdown">
+                                <img class="rounded-circle float-start" id="profileImage" src="https://cdn.discordapp.com/avatars/<%= user.discordId%>/<%= user.avatar%>.png">
+                                <span class="d-inline ps-2"><%= user.username%></span>  
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    <% } else { %>
+                        <a href="/login" class="nav-link">
+                            <span class="d-inline">Login!</span>
+                        </a>
+                    <% } %>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

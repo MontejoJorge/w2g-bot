@@ -1,0 +1,7 @@
+#presenceForm, #announcementContainer, #suggestionContainer, #title {
+    width: 540px;
+    max-width: 100%;
+}
+#profileImage {
+    max-width: 24px;
+}

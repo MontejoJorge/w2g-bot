@@ -1,0 +1,55 @@
+</html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include("templates/head", {title: "Suggestion" }) %>
+</head>
+
+<body>
+    <%- include("templates/bootstrap") %>
+    <%- include("templates/navbar") %>
+
+    <div class="container-fluid bg-light pb-3">
+        <div class="container-sm rounded pt-3 pb-1 text-center" id="title">
+            <h1 class="display-4">Suggestion</h1>
+            <p class="lead">Send a suggestion that can be accepted and included.</p>
+        </div>
+        
+
+        <div class="container-sm rounded pt-3 pb-1 bg-light border" id="suggestionContainer">
+
+            <div class="container">
+                <% if (error.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= error %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <% } if (successfull.length > 0) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= successfull %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <% } %>
+            </div>
+            <form action="/api/suggestion" method="post" autocomplete="off" class="p-3" id="suggestionForm">
+                <div class="row">
+                    <label class="col">
+                        <h3>Suggestion text</h3>
+                    </label>
+                </div>
+
+                <div class="row g-2 g-sm-3 align-items-center pt-3">
+                    <textarea class="form-control" placeholder="Write the suggestion here" name="suggestionText" style="height: 100px"></textarea>
+                    <div class="invalid-feedback">Insert an suggestion between 1 and 2000 characters long.</div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+
+            </form>  
+        </div>
+
+    </div>
+
+</body>
+
+</html>
