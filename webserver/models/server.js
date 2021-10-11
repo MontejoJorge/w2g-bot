@@ -74,6 +74,9 @@ class Server {
 
         this.app.use("/api", require("../routes/api"));
 
+        this.app.use("/webhooks", require("../routes/webhooks"));
+
+
         this.app.use("*", function(req, res) {
             res.status(404);
             return res.render("error", {

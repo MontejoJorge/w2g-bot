@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator');
+
 const presenceValidator = (req, res, next) => {
 
     if (!Array.isArray(req.body.activity)) {
@@ -46,8 +48,20 @@ const suggestionValidator = (req, res, next) => {
     next();
 }
 
+const twitchValidator = (req, res, next) => {
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    
+    next();
+}
+
 module.exports = {
     presenceValidator,
     announcementValidator,
-    suggestionValidator
+    suggestionValidator,
+    twitchValidator
 }
