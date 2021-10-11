@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override')
 const session = require('express-session');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -50,6 +51,8 @@ class Server {
             res.locals.error = req.flash("error");
             next();
         })
+
+        this.app.use(methodOverride('_method'));
 
         this.app.use(cors());
 

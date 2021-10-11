@@ -112,9 +112,39 @@ const twitchPost = async (req, res) => {
 
 }
 
+const twitchDelete = async (req, res) => {
+
+    await TwitchWebhook.deleteOne({
+        id: req.body.notification_id,
+        user: req.user._id
+    })
+    .then((response) => {
+        
+        if (response.deletedCount != 1) return
+
+        axios.delete("https://api.twitch.tv/helix/eventsub/subscriptions", {
+            params: {
+                id: req.body.notification_id
+            },
+            headers: {
+                "Authorization": `Bearer ${process.env.TWITCH_CLIENT_SECRET}`,
+                "Client-Id": `${process.env.TWITCH_CLIENT_ID}`
+            }
+        });
+
+        req.flash('successfull', 'Operation completed successfully.');
+        return res.redirect('back');
+    })
+    .catch((err) => {
+        req.flash('error', 'Error: Something went wrong.');
+        res.redirect('back');
+    })
+}
+
 module.exports = {
     presencePost,
     announcementPost,
     suggestionPost,
-    twitchPost
+    twitchPost,
+    twitchDelete
 }

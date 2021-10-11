@@ -108,8 +108,8 @@
                       <p class="card-text"><b>Server ID: </b><%= notification.guild_id %></p>
                       <p class="card-text"><b>Channel ID: </b><%= notification.channel_id %></p>
                       <p class="card-text text-truncate"><b>Message: </b><%= notification.message %></p>
-                      <form action="" method="post" class="mb-0">
-                        <input name="notification_id" type="hidden" value="<%= notification._id %>">
+                      <form action="/api/twitch?_method=DELETE" method="POST" class="mb-0">
+                        <input name="notification_id" type="hidden" value="<%= notification.id %>">
                         <button type="submit" class="btn btn-danger">Delete</button>
                       </form>
                     </div>

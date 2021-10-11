@@ -29,6 +29,7 @@
     "express-session": "^1.17.2",
     "express-validator": "^6.12.2",
     "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
     "mongoose": "^6.0.7",
     "node-fetch": "^2.6.5",
     "pm2": "^5.1.2",

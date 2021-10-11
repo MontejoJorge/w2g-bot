@@ -1,4 +1,4 @@
-const { presencePost, announcementPost, suggestionPost, twitchPost } = require("../controllers/api");
+const { presencePost, announcementPost, suggestionPost, twitchPost, twitchDelete } = require("../controllers/api");
 const { needAuth, hasRole } = require("../middlewares/auth");
 const { presenceValidator, announcementValidator, suggestionValidator, twitchValidator } = require("../middlewares/api/validators");
 
@@ -22,12 +22,13 @@ router.post("/suggestion", [
 ], suggestionPost);
 
 router.post("/twitch", [
-    check("broadcaster_user_id").isNumeric(),
     check("guild_id").isNumeric(),
     check("channel_id").isNumeric(),
     check("message").isString(),
     check("url").isURL(),
     twitchValidator
 ],twitchPost);
+
+router.delete("/twitch", twitchDelete);
 
 module.exports = router;

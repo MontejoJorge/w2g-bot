@@ -53,7 +53,6 @@ const twitchValidator = (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        console.log(errors);
         req.flash('error', 'Check that the fields are correct.');
         return res.redirect('back');
     }
