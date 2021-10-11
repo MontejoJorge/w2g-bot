@@ -1,4 +1,5 @@
 const Activity = require("../models/activity");
+const TwitchWebhook = require("../models/twitchWebhook");
 
 
 const presenceGet = async (req, res) => {
@@ -17,8 +18,15 @@ const suggestionGet = (req, res) => {
     res.render("suggestion");
 }
 
+const twitchGet = async (req, res) => {
+    res.render("twitch", {
+        notification: await TwitchWebhook.findOne({user: req.user._id})
+    });
+}
+
 module.exports = {
     presenceGet,
     announcementGet,
-    suggestionGet
+    suggestionGet,
+    twitchGet
 }
