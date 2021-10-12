@@ -105,8 +105,8 @@
                     <div class="card-body">
                       <h5 class="card-title">Current notification</h5>
                       <p class="card-text"><b>Channel: </b><%= notification.url.replace("https://www.twitch.tv/", "") %></p>
-                      <p class="card-text"><b>Server ID: </b><%= notification.guild_id %></p>
-                      <p class="card-text"><b>Channel ID: </b><%= notification.channel_id %></p>
+                      <p class="card-text"><b>Server: </b><%= guild_name %></p>
+                      <p class="card-text"><b>Channel: </b>#<%= channel_name %></p>
                       <p class="card-text text-truncate"><b>Message: </b><%= notification.message %></p>
                       <form action="/api/twitch?_method=DELETE" method="POST" class="mb-0">
                         <input name="notification_id" type="hidden" value="<%= notification.id %>">

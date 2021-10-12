@@ -76,7 +76,7 @@ const twitchPost = async (req, res) => {
                     },
                     transport: {
                         method: "webhook",
-                        callback: "https://e45f-5-224-103-0.ngrok.io/webhooks/twitch/callback",
+                        callback: (process.env.BASE_URL || "https://better-bot.com") + "/webhooks/twitch/callback",
                         secret: process.env.SECRET_KEY
                     }
                 })

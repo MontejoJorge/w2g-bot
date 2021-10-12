@@ -1,3 +1,4 @@
+const client = require("../../bot");
 const Activity = require("../models/activity");
 const TwitchWebhook = require("../models/twitchWebhook");
 
@@ -19,8 +20,19 @@ const suggestionGet = (req, res) => {
 }
 
 const twitchGet = async (req, res) => {
+
+    const notification = await TwitchWebhook.findOne({user: req.user._id});
+
+    if (notification) {
+        var guild = client.guilds.cache.find(guild => guild.id == notification.guild_id);
+        
+        var channel = guild.channels.cache.find(channel => channel.id == notification.channel_id);
+    }
+
     res.render("twitch", {
-        notification: await TwitchWebhook.findOne({user: req.user._id})
+        notification,
+        guild_name: (guild) ? guild.name : "",
+        channel_name: (channel) ? channel.name : ""
     });
 }
 
