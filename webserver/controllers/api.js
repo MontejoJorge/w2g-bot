@@ -45,6 +45,21 @@ const suggestionPost = async (req, res) => {
 
 const twitchPost = async (req, res) => {
 
+    const guild = client.guilds.cache.find(guild => guild.id == req.body.guild_id);
+
+    if (!guild) {
+        req.flash('error', 'Server ID not found.');
+        return res.redirect('back');
+    }
+        
+    const channel = guild.channels.cache.find(channel => channel.id == notification.channel_id);
+
+    if (!channel) {
+        req.flash('error', 'Channel ID not found.');
+        return res.redirect('back');
+    }
+    
+
     try {
 
         const webhook = await TwitchWebhook.findOne({
