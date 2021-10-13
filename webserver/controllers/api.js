@@ -44,6 +44,12 @@ const suggestionPost = async (req, res) => {
 }
 
 const twitchPost = async (req, res) => {
+
+    if (req.body.message.length > 100) {
+        req.flash('error', 'The message cannot be longer than 100 characters');
+        return res.redirect('back');
+    }
+
     const client = require("../../bot");
 
     const guild = client.guilds.cache.find(guild => guild.id == req.body.guild_id);
