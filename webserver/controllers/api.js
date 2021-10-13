@@ -44,6 +44,7 @@ const suggestionPost = async (req, res) => {
 }
 
 const twitchPost = async (req, res) => {
+    const client = require("../../bot");
 
     const guild = client.guilds.cache.find(guild => guild.id == req.body.guild_id);
 
@@ -52,13 +53,12 @@ const twitchPost = async (req, res) => {
         return res.redirect('back');
     }
         
-    const channel = guild.channels.cache.find(channel => channel.id == notification.channel_id);
+    const channel = guild.channels.cache.find(channel => channel.id == req.body.channel_id);
 
     if (!channel) {
         req.flash('error', 'Channel ID not found.');
         return res.redirect('back');
-    }
-    
+    }  
 
     try {
 
