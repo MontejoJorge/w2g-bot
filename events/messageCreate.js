@@ -23,7 +23,7 @@ module.exports = {
                 .setColor("#F70000")
                 .setTitle("❗ Deprecated usage")
                 .setDescription("We are updating the bot to use slash commands, " +
-                    "classics commands now have litied functions, " +
+                    "classics commands now have limited functions, " +
                     "so they may not work properly.")
                 .addField("**When will it stop working?**", "October 31, 2021")
                 .setTimestamp()
@@ -34,7 +34,7 @@ module.exports = {
             const embedUpdate = new MessageEmbed()
                 .setColor("#FFCA1C")
                 .setTitle("Update the bot permisions")
-                .setDescription("To create the slash commads the bot require new permisions, update it by clicking on the link")
+                .setDescription("To create the slash commads the bot require new permisions, if you cant see the slash commands, update it by clicking on the link.")
                 .setURL(interaction.client.generateInvite({
                     permissions: [Permissions.FLAGS.ADMINISTRATOR],
                     scopes: ["applications.commands", "bot"]

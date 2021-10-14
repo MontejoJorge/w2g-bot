@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override')
 const session = require('express-session');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -51,6 +52,8 @@ class Server {
             next();
         })
 
+        this.app.use(methodOverride('_method'));
+
         this.app.use(cors());
 
         this.app.use(express.json());
@@ -73,6 +76,9 @@ class Server {
         this.app.use("/admin" ,require("../routes/admin"));
 
         this.app.use("/api", require("../routes/api"));
+
+        this.app.use("/webhooks", require("../routes/webhooks"));
+
 
         this.app.use("*", function(req, res) {
             res.status(404);

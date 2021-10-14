@@ -4,7 +4,7 @@ const { MessageEmbed, Permissions } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("link")
-        .setDescription("Get the bot invitation link"),
+        .setDescription("Get the bot invitation link."),
     async execute(interaction) {
 
         const embedLink = new MessageEmbed()

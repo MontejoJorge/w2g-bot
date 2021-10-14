@@ -3,110 +3,111 @@
 <html lang="es">
 
 <head>
-	<%- include("templates/head", {title: "Dashboard" }) %>
+   <%- include("templates/head", {title: "Dashboard" }) %>
 </head>
 
 <body>
-	<%- include("templates/bootstrap") %>
-	<%- include("templates/navbar") %>
-	<script src="../js/presence.js"></script>
+   <%- include("templates/bootstrap") %>
+      <%- include("templates/navbar") %>
+         <script src="../js/presence.js"></script>
 
-		<div class="container-fluid bg-light pb-3">
-			<div class="container-sm rounded pt-3 pb-1 text-center" id="title">
-				<h1 class="display-4">Bot presence</h1>
-				<p class="lead">Change the bot's status.
-					<button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse"
-						data-bs-target="#presenceTip">Tip</button>
-				</p>
-				<div class="collapse justify-content-center" id="presenceTip">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th scope="col" class="col-3">Variable</th>
-								<th scope="col" class="col-9">Description</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><kbd>guild.count</kbd></td>
-								<td>Displays the number of guilds the bot is in.</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+         <div class="container-fluid bg-light pb-3">
+            <div class="container-sm rounded pt-3 pb-1 text-center" id="title">
+               <h1 class="display-4">Bot presence</h1>
+               <p class="lead">Change the bot's status.
+                  <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse"
+                     data-bs-target="#presenceTip">Tip</button>
+               </p>
+               <div class="collapse justify-content-center" id="presenceTip">
+                  <table class="table table-striped">
+                     <thead>
+                        <tr>
+                           <th scope="col" class="col-3">Variable</th>
+                           <th scope="col" class="col-9">Description</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td><kbd>guild.count</kbd></td>
+                           <td>Displays the number of guilds the bot is in.</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
 
 
-			<div class="container-sm rounded pt-3 pb-1 bg-light border" id="presenceForm">
+            <div class="container-sm rounded pt-3 pb-1 bg-light border" id="presenceForm">
 
-				<div class="container">
-					<% if (error.length > 0) { %>
-						<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							<%= error %>
-							<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-						</div>
-					<% } if (successfull.length > 0) { %>
-						<div class="alert alert-success alert-dismissible fade show" role="alert">
-							<%= successfull %>
-							<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-						</div>
-					<% } %>
-				</div>
-				<form action="/api/presence" method="post" autocomplete="off" class="p-3 presence-form">
-					<div class="row">
-						<label class="col-6">
-							<h3>Name</h3>
-						</label>
-						<label class="col-5">
-							<h3>Type</h3>
-						</label>
-					</div>
-					<% activities.forEach(activity=> { %>
-						<div class="row g-2 g-sm-3 align-items-center pt-3 activity-row">
-							<div class="col-6">
-								<input type="text" name="activity" value="<%= activity.name %>"
-									class="form-control form-control-sm">
-							</div>
-							<div class="col-5">
-								<select class="form-select form-select-sm" name="type">
-									<option <%=(activity.type=="PLAYING" ) ? "selected" : '' %>
-										value="PLAYING">Playing</option>
-									<option <%=(activity.type=="LISTENING" ) ? "selected" : '' %>
-										value="LISTENING">Listening</option>
-									<option <%=(activity.type=="WATCHING" ) ? "selected" : '' %>
-										value="WATCHING">Watching</option>
-									<option <%=(activity.type=="COMPETING" ) ? "selected" : '' %>
-										value="COMPETING">Competing</option>
-								</select>
-							</div>
-							<div class="col-1">
-								<button type="button" class="btn-close remove-activity" aria-label="Close"></button>
-							</div>
-						</div>
-						<% }) %>
+               <div class="container">
+                  <% if (error.length> 0) { %>
+                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= error %>
+                           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                     </div>
+                  <% } if (successfull.length> 0) { %>
+                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= successfull %>
+                           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                     </div>
+                  <% } %>
+               </div>
+               <form action="/api/presence" method="post" autocomplete="off" class="p-3 presence-form">
+                  <div class="row">
+                     <label class="col-6">
+                        <h3>Name</h3>
+                     </label>
+                     <label class="col-5">
+                        <h3>Type</h3>
+                     </label>
+                  </div>
+                  <% activities.forEach(activity=> { %>
+                     <div class="row g-2 g-sm-3 align-items-center pt-3 activity-row">
+                        <div class="col-6">
+                           <input type="text" name="activity" value="<%= activity.name %>"
+                              class="form-control form-control-sm">
+                        </div>
+                        <div class="col-5">
+                           <select class="form-select form-select-sm" name="type">
+                              <option <%=(activity.type=="PLAYING" ) ? "selected" : '' %>
+                                 value="PLAYING">Playing</option>
+                              <option <%=(activity.type=="LISTENING" ) ? "selected" : '' %>
+                                 value="LISTENING">Listening</option>
+                              <option <%=(activity.type=="WATCHING" ) ? "selected" : '' %>
+                                 value="WATCHING">Watching</option>
+                              <option <%=(activity.type=="COMPETING" ) ? "selected" : '' %>
+                                 value="COMPETING">Competing</option>
+                           </select>
+                        </div>
+                        <div class="col-1">
+                           <button type="button" class="btn-close remove-activity" aria-label="Close"></button>
+                        </div>
+                     </div>
+                     <% }) %>
 
-						<div class="row g-2 g-sm-3 align-items-center pt-3 activity-row latest">
-							<div class="col-6">
-								<input type="text" name="activity" class="form-control form-control-sm">
-							</div>
-							<div class="col-5">
-								<select class="form-select form-select-sm" name="type">
-									<option value="PLAYING">Playing</option>
-									<option value="LISTENING">Listening</option>
-									<option value="WATCHING">Watching</option>
-									<option value="COMPETING">Competing</option>
-								</select>
-							</div>
-							<div class="col-1">
-								<button type="button" class="btn-close remove-activity" aria-label="Close"></button>
-							</div>
-						</div>
-						<a class="btn btn-secondary mt-3" href="javascript:addAcitity()" role="button">Add New</a>
-						<button type="submit" class="btn btn-primary mt-3">Submit</button>
-				</form>
-			</div>
+                        <div class="row g-2 g-sm-3 align-items-center pt-3 activity-row latest">
+                           <div class="col-6">
+                              <input type="text" name="activity" class="form-control form-control-sm">
+                           </div>
+                           <div class="col-5">
+                              <select class="form-select form-select-sm" name="type">
+                                 <option value="PLAYING">Playing</option>
+                                 <option value="LISTENING">Listening</option>
+                                 <option value="WATCHING">Watching</option>
+                                 <option value="COMPETING">Competing</option>
+                              </select>
+                           </div>
+                           <div class="col-1">
+                              <button type="button" class="btn-close remove-activity" aria-label="Close"></button>
+                           </div>
+                        </div>
+                        <a class="btn btn-secondary mt-3" href="javascript:addAcitity()" role="button">Add New</a>
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+               </form>
+            </div>
 
-		</div>
+         </div>
+         <%- include("templates/footer") %>
 
 </body>
 

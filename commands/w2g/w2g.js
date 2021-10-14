@@ -5,7 +5,7 @@ const { w2gRoom } = require("../../helpers/w2gRoom");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("w2g")
-        .setDescription("Create w2g room")
+        .setDescription("Create w2g room.")
         .addStringOption(option => 
             option.setName("url")
                 .setDescription("Video URL")
