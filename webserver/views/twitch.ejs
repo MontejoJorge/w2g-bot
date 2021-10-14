@@ -3,125 +3,134 @@
 <html lang="es">
 
 <head>
-    <%- include("templates/head", {title: "Twitch notification" }) %>
+   <%- include("templates/head", {title: "Twitch notification" }) %>
 </head>
 
 <body>
-    <%- include("templates/bootstrap") %>
-    <%- include("templates/navbar") %>
+   <%- include("templates/bootstrap") %>
+      <%- include("templates/navbar") %>
 
-    <div class="container-fluid bg-light pb-3">
-        <div class="container-sm rounded pt-3 pb-1 text-center" id="title">
-            <h1 class="display-4">Twitch notification</h1>
-            <p class="lead">Send a notification when channel start to stream.</p>
+         <div class="container-fluid bg-light pb-3">
+            <div class="container-sm rounded pt-3 pb-1 text-center" id="title">
+               <h1 class="display-4">Twitch notification</h1>
+               <p class="lead">Send a notification when channel start to stream.</p>
 
-            <% if (!notification) { %>
-                <div class="justify-content-center">
-                    <table class="table table-striped">
+               <% if (!notification) { %>
+                  <div class="justify-content-center">
+                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th scope="col" class="col-3">Field</th>
-                                <th scope="col" class="col-9">Description</th>
-                            </tr>
+                           <tr>
+                              <th scope="col" class="col-3">Field</th>
+                              <th scope="col" class="col-9">Description</th>
+                           </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><kbd>Server ID</kbd></td>
-                                <td>The server where the notification will be sent to. Right click on the server image, Copy ID. (Bot must be on the server.)</td>
-                            </tr>
-                            <tr>
-                                <td><kbd>Channel ID</kbd></td>
-                                <td>The channel where the notification will be sent to. Right click on the channel name, Copy ID. (The bot must be able to send messages to the channel.)</td>
-                            </tr>
-                            <tr>
-                                <td><kbd>Message</kbd></td>
-                                <td>The message to be sent with the stream link.</td>
-                            </tr>
-                            <tr>
-                                <td><kbd>Url</kbd></td>
-                                <td>The url of the stream.</td>
-                            </tr>
+                           <tr>
+                              <td><kbd>Server ID</kbd></td>
+                              <td>The server where the notification will be sent to. Right click on the server image,
+                                 Copy ID. (Bot must be on the server.)</td>
+                           </tr>
+                           <tr>
+                              <td><kbd>Channel ID</kbd></td>
+                              <td>The channel where the notification will be sent to. Right click on the channel name,
+                                 Copy ID. (The bot must be able to send messages to the channel.)</td>
+                           </tr>
+                           <tr>
+                              <td><kbd>Message</kbd></td>
+                              <td>The message to be sent with the stream link.</td>
+                           </tr>
+                           <tr>
+                              <td><kbd>Url</kbd></td>
+                              <td>The url of the stream.</td>
+                           </tr>
                         </tbody>
-                    </table>
-                </div>
-            <% } %>
-            
-        </div>
+                     </table>
+                  </div>
+               <% } %>
 
-
-        <div class="container-sm rounded pt-3 pb-1 bg-light border" id="suggestionContainer">
-
-            <div class="container">
-                <% if (error.length > 0) { %>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <%= error %>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                <% } if (successfull.length > 0) { %>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <%= successfull %>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                <% } %>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    Make sure that the Server ID and Channel ID are correct, otherwise the notification will not be sent.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    The message usually takes 1 to 4 minutes to be sent from the start of the stream.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
             </div>
 
-            <% if (!notification) { %>
-                <form action="/api/twitch" method="post" autocomplete="off" class="p-3" id="suggestionForm">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="guild_id" name="guild_id" placeholder="x">
-                                <label for="guild_id">Server ID</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="channel_id" name="channel_id" placeholder="x">
-                                <label for="channel_id">Chanel ID</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="message" name="message" placeholder="x">
-                                <label for="message">Message</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="url" name="url" placeholder="x">
-                                <label for="url">Url</label>
-                            </div>
+            <div class="container-sm rounded pt-3 pb-1 bg-light border" id="suggestionContainer">
+
+               <div class="container">
+                  <% if (error.length> 0) { %>
+                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= error %>
+                           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                     </div>
+                  <% } if (successfull.length> 0) { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                           <%= successfull %>
+                              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-    
-                </form>  
-            <% } else { %>
+                  <% } %>
+                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Make sure that the Server ID and Channel ID are correct, otherwise the notification will
+                        not be sent.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                           aria-label="Close"></button>
+                     </div>
+                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        The message usually takes 1 to 4 minutes to be sent from the start of the stream.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                           aria-label="Close"></button>
+                     </div>
+               </div>
 
-                <div class="card mb-2">
-                    <div class="card-body">
-                      <h5 class="card-title">Current notification</h5>
-                      <p class="card-text"><b>Channel: </b><%= notification.url.replace("https://www.twitch.tv/", "") %></p>
-                      <p class="card-text"><b>Server: </b><%= guild_name %></p>
-                      <p class="card-text"><b>Channel: </b>#<%= channel_name %></p>
-                      <p class="card-text text-truncate"><b>Message: </b><%= notification.message %></p>
-                      <form action="/api/twitch?_method=DELETE" method="POST" class="mb-0">
-                        <input name="notification_id" type="hidden" value="<%= notification.id %>">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                      </form>
-                    </div>
-                </div>
+               <% if (!notification) { %>
+                  <form action="/api/twitch" method="post" autocomplete="off" class="p-3" id="suggestionForm">
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-floating mb-3">
+                              <input type="number" class="form-control" id="guild_id" name="guild_id" placeholder="x">
+                              <label for="guild_id">Server ID</label>
+                           </div>
+                           <div class="form-floating mb-3">
+                              <input type="number" class="form-control" id="channel_id" name="channel_id"
+                                 placeholder="x">
+                              <label for="channel_id">Chanel ID</label>
+                           </div>
+                           <div class="form-floating mb-3">
+                              <input type="text" class="form-control" id="message" name="message" placeholder="x">
+                              <label for="message">Message</label>
+                           </div>
+                           <div class="form-floating mb-3">
+                              <input type="text" class="form-control" id="url" name="url" placeholder="x">
+                              <label for="url">Url</label>
+                           </div>
+                        </div>
+                     </div>
 
-            <% } %>
-             
+                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
 
-        </div>
+                  </form>
+               <% } else { %>
+                  <div class="card mb-2">
+                     <div class="card-body">
+                        <h5 class="card-title">Current notification</h5>
+                        <p class="card-text"><b>Channel: </b>
+                           <%= notification.url.replace("https://www.twitch.tv/", "" ) %>
+                        </p>
+                        <p class="card-text"><b>Server: </b>
+                           <%= guild_name %>
+                        </p>
+                        <p class="card-text"><b>Channel: </b>#<%= channel_name %>
+                        </p>
+                        <p class="card-text text-truncate"><b>Message: </b>
+                           <%= notification.message %>
+                        </p>
+                        <form action="/api/twitch?_method=DELETE" method="POST" class="mb-0">
+                           <input name="notification_id" type="hidden" value="<%= notification.id %>">
+                           <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                     </div>
+                  </div>
+               <% } %>
 
-    </div>
+            </div>
 
+         </div>
+         <%- include("templates/footer") %>
 </body>
 
 </html>
