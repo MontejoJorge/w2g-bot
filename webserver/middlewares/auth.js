@@ -8,7 +8,11 @@ const needAuth = (needAuth) => {
       const { token } = req.signedCookies;
 
       if (!token && needAuth) {
-         return res.redirect('/login');
+         res.status(401);
+         return res.render('error', {
+            code: 401,
+            msg: 'Unauthorized',
+         });
       }
 
       try {
@@ -18,7 +22,11 @@ const needAuth = (needAuth) => {
             const user = await User.findOne({ discordId: id });
 
             if ((!user || !user.enabled) && needAuth) {
-               return res.redirect('/login');
+               res.status(401);
+               return res.render('error', {
+                  code: 401,
+                  msg: 'Unauthorized',
+               });
             }
 
             req.user = user;
@@ -27,7 +35,11 @@ const needAuth = (needAuth) => {
       } catch (error) {
          console.error(error);
 
-         return res.redirect('/login');
+         res.status(401);
+         return res.render('error', {
+            code: 401,
+            msg: 'Unauthorized',
+         });
       }
 
       next();
