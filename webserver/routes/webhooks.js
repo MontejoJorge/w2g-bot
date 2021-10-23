@@ -1,7 +1,7 @@
-const { webhookTwitchPost } = require("../controllers/webhooks");
+const { webhookTwitchPost } = require('../controllers/webhooks');
 
-const router = require("express").Router();
+const router = require('express').Router();
 
-router.post("/twitch/callback", webhookTwitchPost);
+router.post('/twitch/callback', webhookTwitchPost);
 
 module.exports = router;

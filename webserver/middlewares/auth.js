@@ -1,60 +1,66 @@
 const jwt = require('jsonwebtoken');
-const User = require("../models/user");
+const User = require('../models/user');
 
 const needAuth = (needAuth) => {
+   return async (req, res, next) => {
+      res.locals.user = '';
 
-    return async (req, res, next) => {
+      const { token } = req.signedCookies;
 
-        res.locals.user = "";
+      if (!token && needAuth) {
+         res.status(401);
+         return res.render('error', {
+            code: 401,
+            msg: 'Unauthorized',
+         });
+      }
 
-        const { token } = req.signedCookies;
+      try {
+         if (token) {
+            const { id } = jwt.verify(token, process.env.SECRET_KEY);
 
-        if (!token && needAuth) {
-            return res.redirect("/login");
-        }
+            const user = await User.findOne({ discordId: id });
 
-        try {
-
-            if (token) {
-                const { id } = jwt.verify(token, process.env.SECRET_KEY);
-    
-                const user = await User.findOne({ discordId: id });
-        
-                if ((!user || !user.enabled) && needAuth) {
-                    return res.redirect("/login");
-                }
-        
-                req.user = user;
-                res.locals.user = user;
+            if ((!user || !user.enabled) && needAuth) {
+               res.status(401);
+               return res.render('error', {
+                  code: 401,
+                  msg: 'Unauthorized',
+               });
             }
-    
-        } catch (error) {
-    
-            console.error(error);
-    
-            return res.redirect("/login");
-        }
 
-        next();
-    }
+            req.user = user;
+            res.locals.user = user;
+         }
+      } catch (error) {
+         console.error(error);
 
-}
+         res.status(401);
+         return res.render('error', {
+            code: 401,
+            msg: 'Unauthorized',
+         });
+      }
+
+      next();
+   };
+};
 
 const hasRole = (roles) => {
-    return async function (req, res, next) {
-        const user = await User.findById(req.user.id);
-        if (!user || !roles.includes(user.role)) {
-            res.status(403);
-            return res.render("error", {
-                code: 403,
-                msg: "Forbidden"
-            });
-        }
-        next();
-    }
-}
+   return async function (req, res, next) {
+      const user = await User.findById(req.user.id);
+      if (!user || !roles.includes(user.role)) {
+         res.status(403);
+         return res.render('error', {
+            code: 403,
+            msg: 'Forbidden',
+         });
+      }
+      next();
+   };
+};
 
 module.exports = {
-    needAuth,
-    hasRole
-}
+   needAuth,
+   hasRole,
+};

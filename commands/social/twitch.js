@@ -3,19 +3,19 @@ const { MessageEmbed, Permissions } = require('discord.js');
 
 module.exports = {
    data: new SlashCommandBuilder()
-      .setName('link')
-      .setDescription('Get the bot invitation link.'),
-   async execute(interaction) {
-      const embedLink = new MessageEmbed()
+      .setName('twitch')
+      .setDescription(
+         'Create a custom message to be sent when a stream starts on twitch.'
+      ),
+   async execute(interaction = Interaction) {
+      const twitchEmbed = new MessageEmbed()
          .setColor('#FFCA1C')
-         .setTitle('Invite the bot!')
-         .setURL(
-            interaction.client.generateInvite({
-               permissions: [Permissions.FLAGS.ADMINISTRATOR],
-               scopes: ['applications.commands', 'bot'],
-            })
+         .setTitle('Create twitch notification')
+         .setDescription(
+            'Log in to the web and create the notification https://better-bot.com/dashboard/twitch'
          )
-         .setDescription('Use this link to invite the bot to your servers!')
+         .addField('Server ID', interaction.guild.id)
+         .addField('Channel ID', interaction.channel.id)
          .setThumbnail(interaction.client.user.displayAvatarURL());
 
       const permissions = interaction.channel.permissionsFor(
@@ -23,9 +23,9 @@ module.exports = {
       );
 
       if (permissions.has(Permissions.FLAGS.EMBED_LINKS)) {
-         await interaction.reply({ embeds: [embedLink] });
+         await interaction.reply({ embeds: [twitchEmbed] });
       } else {
-         await interaction.user.send({ embeds: [embedLink] });
+         await interaction.user.send({ embeds: [twitchEmbed] });
          await interaction.user.send(
             'You received this message by DM because I do not have sufficient permissions to send it where you asked for it.'
          );

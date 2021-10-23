@@ -1,9 +1,9 @@
-const router = require("express").Router();
+const router = require('express').Router();
 
-router.get("/", function(req, res) {
-    res.clearCookie("token");
+router.get('/', function (req, res) {
+   res.clearCookie('token');
 
-    return res.redirect("/");
+   return res.redirect('/');
 });
 
 module.exports = router;
