@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 async function w2gRoom(videoLink = '') {
-   const res = await fetch('https://w2g.tv/rooms/create.json', {
+   const res = await fetch('https://api.w2g.tv/rooms/create.json', {
       method: 'POST',
       headers: {
          Accept: 'application/json',
